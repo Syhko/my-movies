@@ -75,6 +75,7 @@ class MovieForm extends React.Component {
 		  		<button type="submit" className="addButton">
 						Add
 					</button>
+					<p>(Click on a movie to see details)</p>
 				</form>
 			</div>
 		);
