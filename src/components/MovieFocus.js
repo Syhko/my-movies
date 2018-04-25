@@ -29,9 +29,9 @@ class MovieFocus extends React.Component {
 					<p style={{fontWeight: "bold"}}> {plot} </p>
 				</div>
 				<div className="footer">
-					<p className="rates" style={{fontWeight: "bold"}}>IMDB : {(ratings.length >= 1) ? ratings[0].Value : "N/A"} </p>
-					<p className="rates" style={{fontWeight: "bold"}}>Rotten Tomatoes : {(ratings.length >= 2) ? ratings[1].Value : "N/A"} </p>
-					<p className="rates" style={{fontWeight: "bold"}}>Metacritic : {(ratings.length >= 3) ? ratings[2].Value : "N/A"} </p>
+					<p className="rates" style={{fontWeight: "bold"}}>IMDB : {(ratings != null && ratings.length >= 1) ? ratings[0].Value : "N/A"} </p>
+					<p className="rates" style={{fontWeight: "bold"}}>Rotten Tomatoes : {(ratings != null && ratings.length >= 2) ? ratings[1].Value : "N/A"} </p>
+					<p className="rates" style={{fontWeight: "bold"}}>Metacritic : {(ratings != null && ratings.length >= 3) ? ratings[2].Value : "N/A"} </p>
 				</div>
 			</div>
 

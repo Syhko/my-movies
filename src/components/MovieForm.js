@@ -46,7 +46,7 @@ class MovieForm extends React.Component {
 		let currentComponent = this;
 		let param=this.imageLink.value;
 
-		return fetch(`http://www.omdbapi.com/?apikey=ffc03c92&t=${param}`)
+		return fetch(`https://www.omdbapi.com/?apikey=ffc03c92&t=${param}`)
 		.then(response => response.json())
 		.then(function(data) {
 			console.log(data);
