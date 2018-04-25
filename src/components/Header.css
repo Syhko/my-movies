@@ -2,10 +2,10 @@
 	margin: auto;
 	font-family: 'Titillium Web';
 	font-size: 45px;
-	color : white ;
 }
 
 .bandeau {
+	color : white ;
 	background-color: #222222;
 	display: flex;
 	height: 90px;
@@ -15,6 +15,7 @@
 	z-index: 99;
 	position: fixed;
 	width: 100%;
+	margin: auto;
 }
 
 .searchInput {
