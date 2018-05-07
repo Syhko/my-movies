@@ -64,7 +64,7 @@ class App extends PureComponent {
 		this.setState ({ showMovieFocus : true });
 		console.log(this.state.ratingsFocus);
 	}
-	
+
 	closeMovieFocus = () => { this.setState({ showMovieFocus : false }) }
 
 
@@ -79,11 +79,11 @@ class App extends PureComponent {
 		}
 
 		const movieList = filteredMovies
-		.map(key => 
-						<Movie 
+		.map(key =>
+						<Movie
 							key={key}
-							id={key} 
-							poster={movies[key].poster} 
+							id={key}
+							poster={movies[key].poster}
 							title={movies[key].title}
 							actors={movies[key].actors}
 							genre={movies[key].genre}
@@ -95,7 +95,7 @@ class App extends PureComponent {
 							deleteMovie={this.deleteMovie}
 							handleClick={this.clickMovie}
 						/>
-				)	
+				)
 
 		return (
 
@@ -104,7 +104,7 @@ class App extends PureComponent {
 				<ReactCSSTransitionGroup className="grid" transitionName="fade" transitionEnterTimeout={400} transitionLeaveTimeout={500} >
 				<MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie}/>
 				{movieList}
-				{this.state.showMovieFocus ?	<MovieFocus 
+				{this.state.showMovieFocus ?	<MovieFocus
 																				poster={this.state.posterFocus}
 																				title={this.state.titleFocus}
 																				actors={this.state.actorsFocus}
