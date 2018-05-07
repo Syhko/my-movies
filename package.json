@@ -9,8 +9,9 @@
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.3.2",
     "react-modal-bootstrap": "^1.1.1",
+    "react-rebase": "^1.0.5",
     "react-scripts": "1.1.4"
   },
   "scripts": {

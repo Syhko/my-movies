@@ -18,7 +18,6 @@ class Movie extends React.Component {
           onClick={() => this.props.handleClick(this.props.id)}
         />
         <button onClick={() => this.props.deleteMovie(this.props.id)} className="overlayButton"><strong>X</strong></button>
-        <p className="title">{this.props.title}</p>   
     	</div>
     	);
     }

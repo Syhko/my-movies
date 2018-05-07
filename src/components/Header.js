@@ -16,7 +16,7 @@ class Header extends React.Component {
 				</input>
 				<button className="clearButton" onClick={this.props.deleteAll} >
 					CLEAR
-				</button>				
+				</button>
 			</header>
 			);
 	}
