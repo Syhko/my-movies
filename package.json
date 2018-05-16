@@ -1,10 +1,10 @@
 {
   "name": "my-movies",
-  "version": "0.1.0",
+  "version": "1.6.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.0",
-    "npm": "^5.8.0",
+    "bootstrap": "^4.1.1",
+    "npm": "^5.10.0",
     "re-base": "2.2.0",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
@@ -23,5 +23,9 @@
   "devDependencies": {
     "eslint-config-google": "^0.9.1",
     "eslint-config-rallycoding": "^3.2.0"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Syhko/my-movies.git",
+  "author": "Alexandre Grauby <alexandregrauby@gmail.com>",
+  "license": "MIT"
 }
