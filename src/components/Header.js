@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class Header extends React.Component {
 
@@ -11,12 +12,10 @@ class Header extends React.Component {
 		return (
 
 			<header className="bandeau">
-				<h1 className="titleText">Movie list App</h1>
+				<h1 className="titleText">Welcome "pseudo will go here"</h1>
 				<input className="searchInput" type="text" placeholder="Search..." onChange={e => onChange(e.target.value)} >
 				</input>
-				<button className="clearButton" onClick={this.props.deleteAll} >
-					CLEAR
-				</button>
+				<Link to="/"><button className="clearButton" /*onClick={this.props.deleteAll}*/ >Return Homepage</button></Link>
 			</header>
 			);
 	}
