@@ -61,11 +61,10 @@ class App extends PureComponent {
 	clickMovie = (id) => {
 		const movies = { ...this.state.movies };
 		this.setState ({ posterFocus: movies[id].poster, titleFocus: movies[id].title, actorsFocus: movies[id].actors, genreFocus: movies[id].genre, yearFocus: movies[id].year, awardsFocus: movies[id].awards, writerFocus: movies[id].writer, plotFocus: movies[id].plot, ratingsFocus : movies[id].ratings })
-		this.setState ({ showMovieFocus : true });
-		console.log(this.state.ratingsFocus);
+		this.state.showMovieFocus===false ? this.setState ({ showMovieFocus : true }) : this.setState ({ showMovieFocus : false });
 	}
 
-	closeMovieFocus = () => { this.setState({ showMovieFocus : false }) }
+	closeMovieFocus = () => { this.state.showMovieFocus===false ? this.setState ({ showMovieFocus : true }) : this.setState ({ showMovieFocus : false }) }
 
 
 	render() {
