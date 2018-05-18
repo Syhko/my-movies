@@ -1,3 +1,12 @@
 {
-  "extends": "react-app"
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "jsx-a11y/anchor-is-valid": [ "error", {
+        "components": [ "Link" ],
+        "specialLink": [ "hrefLeft", "hrefRight" ],
+        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+      }],
+    "jsx-a11y/href-no-hash": "off"
+  }
 }

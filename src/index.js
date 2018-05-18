@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import Connexion from './components/Connexion';
 import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
@@ -13,6 +13,6 @@ ReactDOM.render(
       <Route path="/movies/" component={App} />
     </div>
   </Router>,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);
 registerServiceWorker();
