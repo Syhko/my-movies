@@ -67,6 +67,10 @@ class App extends PureComponent {
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
 
+  closeMovieFocus = () => {
+    this.setState({ showMovieFocus: false });
+  }
+
   render() {
     const { movies } = this.state;
 
@@ -81,44 +85,48 @@ class App extends PureComponent {
 
     const movieList = filteredMovies
       .map(key =>
-        (<Movie
-          key={key}
-          id={key}
-          poster={movies[key].poster}
-          title={movies[key].title}
-          actors={movies[key].actors}
-          genre={movies[key].genre}
-          year={movies[key].year}
-          awards={movies[key].awards}
-          writer={movies[key].writer}
-          plot={movies[key].plot}
-          ratings={movies[key].ratings}
-          deleteMovie={this.deleteMovie}
-          handleClick={this.clickMovie}/>
-
+        (<CSSTransition key={key} timeout={500} classNames="fade">
+          <Movie
+            key={key}
+            id={key}
+            poster={movies[key].poster}
+            title={movies[key].title}
+            actors={movies[key].actors}
+            genre={movies[key].genre}
+            year={movies[key].year}
+            awards={movies[key].awards}
+            writer={movies[key].writer}
+            plot={movies[key].plot}
+            ratings={movies[key].ratings}
+            deleteMovie={this.deleteMovie}
+            handleClick={this.clickMovie}/>
+         </CSSTransition>
         ));
 
     return (
 
       <div className="App">
         <Header pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
-        <div className="grid">
+        <TransitionGroup className="grid">
           <MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />
           {movieList}
-          {this.state.showMovieFocus ?
-            <MovieFocus
-              poster={this.state.posterFocus}
-              title={this.state.titleFocus}
-              actors={this.state.actorsFocus}
-              genre={this.state.genreFocus}
-              year={this.state.yearFocus}
-              awards={this.state.awardsFocus}
-              writer={this.state.writerFocus}
-              plot={this.state.plotFocus}
-              ratings={this.state.ratingsFocus}
-              closeMovieFocus={this.closeMovieFocus}
-            /> : null}
-        </div>
+        </TransitionGroup>
+        <CSSTransition in={this.state.showMovieFocus === true} timeout={500} classNames="fade">
+          <React.Fragment>
+            {this.state.showMovieFocus ?
+              <MovieFocus
+                poster={this.state.posterFocus}
+                title={this.state.titleFocus}
+                actors={this.state.actorsFocus}
+                genre={this.state.genreFocus}
+                year={this.state.yearFocus}
+                awards={this.state.awardsFocus}
+                writer={this.state.writerFocus}
+                plot={this.state.plotFocus}
+                ratings={this.state.ratingsFocus}
+              /> : null}
+          </React.Fragment>
+        </CSSTransition>
       </div>
     );
   }
