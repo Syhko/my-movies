@@ -29,7 +29,7 @@ class Connexion extends PureComponent {
           required
           onChange={this.updatePseudo}
         />
-        <Link to={`/movies/${this.state.pseudo}`}><button className="connexion_button">Connect !</button></Link>
+        <Link to={`/movies/${this.state.pseudo.toLowerCase()}`}><button className="connexion_button">Connect !</button></Link>
       </form>
     );
   }
