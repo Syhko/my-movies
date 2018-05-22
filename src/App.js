@@ -16,8 +16,8 @@ import base from './base';
 class App extends PureComponent {
   state = {
     movies: {},
+    showMovieFocus: false,
     searchText: null,
-    showMyComponent: '',
     posterFocus: '',
     titleFocus: '',
     actorsFocus: '',
@@ -30,7 +30,7 @@ class App extends PureComponent {
   }
 
   // Synchro with firebase
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     this.ref = base.syncState('/movies', {
       context: this,
       state: 'movies',
@@ -66,9 +66,6 @@ class App extends PureComponent {
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
 
-  closeMovieFocus = () => { this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false }) }
-
-
   render() {
     const { movies } = this.state;
 
@@ -97,30 +94,31 @@ class App extends PureComponent {
           ratings={movies[key].ratings}
           deleteMovie={this.deleteMovie}
           handleClick={this.clickMovie}/>
+
         ));
 
-     return (
+    return (
 
-       <div className="App">
-         <Header onChange={value => this.setState({ searchText: value })}/>
-         <div className="grid">
-           <MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />
-           {movieList}
-           {this.state.showMovieFocus ?
-             <MovieFocus
-               poster={this.state.posterFocus}
-               title={this.state.titleFocus}
-               actors={this.state.actorsFocus}
-               genre={this.state.genreFocus}
-               year={this.state.yearFocus}
-               awards={this.state.awardsFocus}
-               writer={this.state.writerFocus}
-               plot={this.state.plotFocus}
-               ratings={this.state.ratingsFocus}
-               closeMovieFocus={this.closeMovieFocus}
+      <div className="App">
+        <Header onChange={value => this.setState({ searchText: value })}/>
+        <div className="grid">
+          <MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />
+          {movieList}
+          {this.state.showMovieFocus ?
+            <MovieFocus
+              poster={this.state.posterFocus}
+              title={this.state.titleFocus}
+              actors={this.state.actorsFocus}
+              genre={this.state.genreFocus}
+              year={this.state.yearFocus}
+              awards={this.state.awardsFocus}
+              writer={this.state.writerFocus}
+              plot={this.state.plotFocus}
+              ratings={this.state.ratingsFocus}
+              closeMovieFocus={this.closeMovieFocus}
             /> : null}
-         </div>
-       </div>
+        </div>
+      </div>
     );
   }
 }

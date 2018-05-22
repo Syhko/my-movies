@@ -10,7 +10,6 @@ class MovieFocus extends React.Component {
     return (
 
       <div className="wrapper">
-        <button onClick={closeMovieFocus} className="overlayButtonFocus"><strong>X</strong></button>
         <div className="row">
           <div className="row_cell">
             <img className="imageFocus" src={poster} width="200" height="280" alt="" />

@@ -1,6 +1,7 @@
 // REACT
 import React, { PureComponent } from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+// ROUTER
+import { Link } from 'react-router-dom';
 // CSS
 import '../App.css';
 
@@ -13,9 +14,13 @@ class Connexion extends PureComponent {
     this.setState({ pseudo: e.target.value });
   }
 
+  goToMovies = (event) => {
+    event.preventDefault();
+  }
+
   render() {
     return (
-      <div className="connexion_wrapper">
+      <form className="connexion_wrapper" onSubmit={e => this.goToMovies(e)} >
         <h1 className="connexion_title">Syhko Movie App</h1>
         <input
           className="connexion_input"
@@ -24,8 +29,8 @@ class Connexion extends PureComponent {
           required
           onChange={this.updatePseudo}
         />
-        <a href={`/movies/${this.state.pseudo}`}><button className="connexion_button">Connect !</button></a>
-      </div>
+        <Link to={`/movies/${this.state.pseudo}`}><button className="connexion_button">Connect !</button></Link>
+      </form>
     );
   }
 }

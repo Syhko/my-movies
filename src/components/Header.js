@@ -1,6 +1,6 @@
-import { BrowserRouter as Link } from 'react-router-dom';
 import React from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class Header extends React.Component {
       <header className="bandeau">
         <h1 className="titleText">Welcome -pseudo-</h1>
         <input className="searchInput" type="text" placeholder="Search..." onChange={e => onChange(e.target.value)} />
-        <a href="/"><button className="clearButton" /* onClick={this.props.deleteAll} */ >Return Login Page</button></a>
+        <Link to="/"><button className="homeButton" /* onClick={this.props.deleteAll} */ >Return Login Page</button></Link>
       </header>
     );
   }
