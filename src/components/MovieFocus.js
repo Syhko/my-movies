@@ -4,7 +4,7 @@ import './MovieFocus.css';
 class MovieFocus extends React.Component {
   render() {
     const {
-      closeMovieFocus, poster, plot, ratings, title, actors, year, awards, genre, writer,
+      poster, plot, ratings, title, actors, year, awards, genre, writer,
     } = this.props;
 
     return (

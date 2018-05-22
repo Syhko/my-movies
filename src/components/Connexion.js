@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 // ROUTER
 import { Link } from 'react-router-dom';
 // CSS
-import '../App.css';
+import './App.css';
 
 class Connexion extends PureComponent {
   state={

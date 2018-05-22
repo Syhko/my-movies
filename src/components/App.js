@@ -5,12 +5,12 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 // STYLE
 import './App.css';
 // COMPONENTS
-import Header from './components/Header';
-import Movie from './components/Movie';
-import MovieForm from './components/MovieForm';
-import MovieFocus from './components/MovieFocus';
+import Header from './Header';
+import Movie from './Movie';
+import MovieForm from './MovieForm';
+import MovieFocus from './MovieFocus';
 // BDD Firebase
-import base from './base';
+import base from '../base';
 
 
 class App extends PureComponent {
@@ -67,9 +67,10 @@ class App extends PureComponent {
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
 
-  closeMovieFocus = () => {
+//Unused ATM
+  /*closeMovieFocus = () => {
     this.setState({ showMovieFocus: false });
-  }
+  }*/
 
   render() {
     const { movies } = this.state;
