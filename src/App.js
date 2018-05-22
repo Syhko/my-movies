@@ -14,6 +14,7 @@ import base from './base';
 
 
 class App extends PureComponent {
+
   state = {
     movies: {},
     showMovieFocus: false,
@@ -31,7 +32,7 @@ class App extends PureComponent {
 
   // Synchro with firebase
   componentWillMount() {
-    this.ref = base.syncState('/movies', {
+    this.ref = base.syncState(`${this.props.match.params.pseudo}/movies`, {
       context: this,
       state: 'movies',
     });
@@ -100,7 +101,7 @@ class App extends PureComponent {
     return (
 
       <div className="App">
-        <Header onChange={value => this.setState({ searchText: value })}/>
+        <Header pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
         <div className="grid">
           <MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />
           {movieList}
