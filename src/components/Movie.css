@@ -1,4 +1,9 @@
-.poster {
+.poster_seen {
+  box-shadow: 2px 2px 2px green;
+}
+
+.poster_unseen {
+  box-shadow: 2px 2px 2px red;
 }
 
 .fiche {

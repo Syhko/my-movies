@@ -31,6 +31,7 @@ class Connexion extends PureComponent {
         />
         <Link to={`/movies/${this.state.pseudo.toLowerCase()}`}><button className="connexion_button">Connect !</button></Link>
       </form>
+
     );
   }
 }

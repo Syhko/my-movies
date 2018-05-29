@@ -64,5 +64,14 @@
 .overlayButtonFocus:focus {
 	outline:0 !important;
 	color: #ffffff;
+}
 
+.seen_box {
+  align-items: center;
+  display: flex;
+  position: absolute;
+	top : 0.5%;
+	right: 1.5%;
+  font-size: 13px;
+  color: #dddddd;
 }
