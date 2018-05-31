@@ -1,11 +1,10 @@
-import React from 'react';
-import './Header.css';
 import { Link } from 'react-router-dom';
 import Autosuggest from 'react-autosuggest';
+import React from 'react';
+import './Header.css';
 
 
 class Header extends React.Component {
-
   state = {
     poster: '',
     title: '',
@@ -18,12 +17,12 @@ class Header extends React.Component {
     ratings: '',
     value: '',
     listMovies: [],
-    suggestions: []
-  }
+    suggestions: [],
+  };
 
   onChange = (event, { newValue }) => {
     this.setState({
-      value: newValue
+      value: newValue,
     });
     this.requestFetchSuggestion();
   };
@@ -33,21 +32,12 @@ class Header extends React.Component {
     const inputLength = inputValue.length;
 
     return this.state.listMovies[0] !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
-      list.Title.toLowerCase().slice(0, inputLength) === inputValue
-    );
+      list.Title.toLowerCase().slice(0, inputLength) === inputValue);
   };
 
-  getSuggestionValue = (suggestion) => {
-    return suggestion.Title;
-  }
+  getSuggestionValue = suggestion => suggestion.Title
 
-  renderSuggestion = (suggestion) => {
-    return (
-      <div>
-        {suggestion.Title}
-      </div>
-    );
-  };
+
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
@@ -120,6 +110,12 @@ class Header extends React.Component {
         }, () => true);
       });
   }
+
+  renderSuggestion = (suggestion) => (
+      <div>
+        {suggestion.Title}
+      </div>
+    );
 
   render() {
 

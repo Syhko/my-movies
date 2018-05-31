@@ -7,7 +7,6 @@ import './App.css';
 // COMPONENTS
 import Header from './Header';
 import Movie from './Movie';
-import MovieForm from './MovieForm';
 import MovieFocus from './MovieFocus';
 // BDD Firebase
 import base from '../base';

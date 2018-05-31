@@ -1,7 +1,7 @@
 .titleText {
 	font-family: 'Titillium Web';
 	font-size: 35px;
-	margin-left: 30px;
+	margin-left: 50px;
 }
 
 .bandeau {
@@ -58,11 +58,19 @@
 }
 
 .react-autosuggest__input {
+	font-family: 'Titillium Web';
+	font-size: 18px;
 	width: 310px;
 	height: 20px;
 	border: none;
   border-bottom: 2px solid red;
 	background-color: inherit;
+	color: #aaaaaa;
+}
+
+.react-autosuggest__input::-webkit-input-placeholder {
+	font-family: 'Titillium Web';
+	font-size: 18px;
 	color: #aaaaaa;
 }
 
