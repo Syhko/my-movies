@@ -107,9 +107,9 @@ class App extends PureComponent {
     return (
 
       <div className="App">
-        <Header pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
+        <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
         <TransitionGroup className="grid">
-          <MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />
+          {/*<MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />*/}
           {movieList}
         </TransitionGroup>
         <CSSTransition in={this.state.showMovieFocus === true} timeout={500} classNames="fade">

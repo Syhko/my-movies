@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
-import './MovieForm.css';
 
 class MovieForm extends React.Component {
 
@@ -88,6 +87,7 @@ class MovieForm extends React.Component {
     .then(response => response.json())
     .then((data) => {
       if (data.Response !== "False") {
+        console.log(data);
         const dataArray=Object.values(data).slice(0,1);
       return currentComponent.setState ({ listMovies : dataArray[0] })
     }
@@ -124,13 +124,11 @@ class MovieForm extends React.Component {
       value,
       onChange: this.onChange
     };
-    console.log(this.state.suggestions);
 
     return (
       <div className="ficheForm">
+        <p> ADD A MOVIE/SERIE TO YOUR DATABASE </p>
         <form className="addForm" ref={input => this.addForm = input} onSubmit={e => this.createMovie(e)} >
-          <h1>HERE</h1>
-          <p> ADD A MOVIE/SERIE TO YOUR DATABASE </p>
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -139,8 +137,7 @@ class MovieForm extends React.Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
           />
-          <button type="submit" className="addButton">Add</button>
-          <p>(Click on a movie to see details)</p>
+          <button type="submit" className="addButton">GO</button>
         </form>
       </div>
     );

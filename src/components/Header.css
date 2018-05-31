@@ -1,28 +1,19 @@
 .titleText {
-	margin: auto;
 	font-family: 'Titillium Web';
 	font-size: 35px;
+	margin-left: 30px;
 }
 
 .bandeau {
 	color : white ;
 	background-color: #222222;
 	display: flex;
+	justify-content: space-between;
 	height: 90px;
-	flex:1 1 auto;
-	overflow: auto;
 	top: 0;
 	z-index: 99;
 	position: fixed;
 	width: 100%;
-	margin: auto;
-}
-
-.searchInput {
-	height: 22px;
-	width : 200px;
-	margin: auto;
-	border-radius: 4px;
 }
 
 .homeButton {
@@ -36,7 +27,47 @@
 	background-color: #880000;
 }
 
-.clearButton:focus {
-	outline:0 !important;
-	color: #ffffff;
+.addForm {
+	display: flex;
+}
+
+.addButton {
+	background-color: #222222;
+	border-color: #ff0000;
+	color: white;
+	width: 50px;
+	height: 27px;
+	margin-top : 30px;
+}
+
+.react-autosuggest__suggestions-container {
+	background-color: #880000;
+	overflow: visible;
+}
+
+.react-autosuggest__suggestion {
+  color: #aaaaaa;
+  cursor: pointer;
+  font-size: 14px;
+  height: 50px;
+  overflow: hidden;
+  text-align: left;
+	margin-left: -30px;
+}
+
+.react-autosuggest__input {
+	width: 310px;
+	height: 20px;
+	border: none;
+  border-bottom: 2px solid red;
+	background-color: inherit;
+	color: #aaaaaa;
+}
+
+.react-autosuggest__input : focus {
+	outline: none;
+}
+
+.react-autosuggest__container {
+	margin-top: 30px;
 }
