@@ -13,7 +13,6 @@ import base from '../base';
 
 
 class App extends PureComponent {
-
   state = {
     movies: {},
     showMovieFocus: false,
@@ -87,6 +86,7 @@ class App extends PureComponent {
       .map(key =>
         (<CSSTransition key={key} timeout={500} classNames="fade">
           <Movie
+            seen={"poster_seen"}
             key={key}
             id={key}
             poster={movies[key].poster}

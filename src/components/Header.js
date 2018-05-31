@@ -21,17 +21,17 @@ class Header extends React.Component {
   };
 
   onChange = (event, { newValue }) => {
+    this.requestFetchSuggestion();
     this.setState({
       value: newValue,
     });
-    this.requestFetchSuggestion();
   };
 
   getSuggestions = (value) => {
     const inputValue = value.toLowerCase();
     const inputLength = inputValue.length;
 
-    return this.state.listMovies[0] !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
+    return this.state.listMovies !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
       list.Title.toLowerCase().slice(0, inputLength) === inputValue);
   };
 
@@ -77,7 +77,7 @@ class Header extends React.Component {
   requestFetchSuggestion = () => {
     const currentComponent = this;
 
-    this.state.value.length>=3 && fetch(`https://www.omdbapi.com/?apikey=ffc03c92&s=${this.state.value}`)
+    this.state.value.length>=2 && fetch(`https://www.omdbapi.com/?apikey=ffc03c92&s=${this.state.value}`)
     .then(response => response.json())
     .then((data) => {
       if (data.Response !== "False") {
@@ -111,11 +111,11 @@ class Header extends React.Component {
       });
   }
 
-  renderSuggestion = (suggestion) => (
+  renderSuggestion = suggestion => (
       <div>
-        {suggestion.Title}
+        {suggestion.Title} {suggestion.Year}
       </div>
-    );
+  );
 
   render() {
 

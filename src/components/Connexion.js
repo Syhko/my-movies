@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 // CSS
 import './Connexion.css';
+import logo_Syhko from './logo_Syhko.png';
 
 class Connexion extends PureComponent {
   state={
@@ -21,6 +22,7 @@ class Connexion extends PureComponent {
   render() {
     return (
       <form className="connexion_wrapper" onSubmit={e => this.goToMovies(e)} >
+        <img src={logo_Syhko} alt="logo_Syhko"/>
         <h1 className="connexion_title">Syhko Movie App</h1>
         <input
           className="connexion_input"
