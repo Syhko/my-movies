@@ -43,6 +43,8 @@
 .react-autosuggest__suggestions-container {
 	background-color: #880000;
 	overflow: visible;
+	margin-top: -15px;
+	border-radius: 2px;
 }
 
 .react-autosuggest__suggestion {
@@ -64,10 +66,15 @@
 	color: #aaaaaa;
 }
 
-.react-autosuggest__input : focus {
+.react-autosuggest__input:focus {
 	outline: none;
 }
 
 .react-autosuggest__container {
 	margin-top: 30px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+	color: #ffffff;
+
 }

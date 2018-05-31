@@ -81,6 +81,7 @@ class Header extends React.Component {
     }
     this.props.addMovie(movie);
     this.addForm.reset();
+    this.setState({ value : '' });
   }
 
   requestFetchSuggestion = () => {
@@ -143,7 +144,7 @@ class Header extends React.Component {
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
           />
-          <button type="submit" className="addButton">Add</button>
+          {/*<button type="submit" className="addButton">Add</button>*/}
         </form>
         {/*<input className="searchInput" type="text" placeholder="Search..." onChange={e => onChange(e.target.value)} />*/}
         <Link to="/"><button className="homeButton" /* onClick={this.props.deleteAll} */ >Return to Login Page</button></Link>
