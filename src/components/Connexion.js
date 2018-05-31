@@ -7,7 +7,7 @@ import './Connexion.css';
 
 class Connexion extends PureComponent {
   state={
-    pseudo: '',
+    pseudo: 'a',
   }
 
   updatePseudo = (e) => {
