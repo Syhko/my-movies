@@ -16,6 +16,7 @@ class Header extends React.Component {
     plot: '',
     ratings: '',
     value: '',
+    imdbID: '',
     listMovies: [],
     suggestions: [],
   };
@@ -27,18 +28,6 @@ class Header extends React.Component {
     });
   };
 
-  getSuggestions = (value) => {
-    const inputValue = value.toLowerCase();
-    const inputLength = inputValue.length;
-
-    return this.state.listMovies !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
-      list.Title.toLowerCase().slice(0, inputLength) === inputValue);
-  };
-
-  getSuggestionValue = suggestion => suggestion.Title
-
-
-
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
       suggestions: this.getSuggestions(value)
@@ -49,6 +38,16 @@ class Header extends React.Component {
     this.setState({
       suggestions: []
     });
+  };
+
+  getSuggestionValue = suggestion => suggestion.Title
+
+  getSuggestions = (value) => {
+    const inputValue = value.toLowerCase();
+    const inputLength = inputValue.length;
+
+    return this.state.listMovies !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
+      list.Title.toLowerCase().slice(0, inputLength) === inputValue);
   };
 
   createMovie = async (event) => {
@@ -64,6 +63,7 @@ class Header extends React.Component {
       writer: this.state.writer,
       plot: this.state.plot,
       ratings: this.state.ratings,
+      imdbID: this.state.imdbID,
     };
     if (movie.poster === 'N/A') {
       alert('NO IMAGE FOUND');
@@ -104,9 +104,11 @@ class Header extends React.Component {
         const writer = data.Writer;
         const plot = data.Plot;
         const ratings = data.Ratings;
+        const imdbID = data.imdbID;
+
 
         return currentComponent.setState({
-          poster, title, actors, year, genre, awards, writer, plot, ratings,
+          poster, title, actors, year, genre, awards, writer, plot, ratings, imdbID,
         }, () => true);
       });
   }
@@ -118,9 +120,6 @@ class Header extends React.Component {
   );
 
   render() {
-
-    console.log(suggestions);
-    console.log(value);
 
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;

@@ -4,14 +4,14 @@ import './MovieFocus.css';
 class MovieFocus extends React.Component {
   render() {
     const {
-      poster, plot, ratings, title, actors, year, awards, genre, writer,
+      poster, plot, ratings, title, actors, year, awards, genre, writer, isChecked
     } = this.props;
 
-    return (
 
+    return (
       <div className="wrapper">
         <div className="seen_box">
-          <input type="checkbox"/>
+          <input type="checkbox" checked={isChecked}/>
           <p>Seen</p>
         </div>
         <div className="row">

@@ -42,10 +42,16 @@ class App extends PureComponent {
 
   addMovie = (movie) => {
     const movies = { ...this.state.movies };
-    const timestamp = Date.now();
-    movies[`movie-${timestamp}`] = movie;
-    this.setState({ searchText: null });
-    this.setState({ movies });
+    let isPresent = Object.values(movies).find(x => x.imdbID === movie.imdbID);
+    if (isPresent === undefined) {
+      const timestamp = Date.now();
+      movies[`movie-${timestamp}`] = movie;
+      this.setState({ searchText: null });
+      this.setState({ movies });
+    } else {
+      alert('this movie already exist');
+    }
+
   }
 
   deleteMovie = (id) => {
@@ -99,7 +105,8 @@ class App extends PureComponent {
             plot={movies[key].plot}
             ratings={movies[key].ratings}
             deleteMovie={this.deleteMovie}
-            handleClick={this.clickMovie}/>
+            handleClick={this.clickMovie}
+            imdbID={movies[key].imdbID}/>
          </CSSTransition>
         ));
 
