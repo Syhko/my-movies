@@ -77,7 +77,7 @@ class Header extends React.Component {
   requestFetchSuggestion = () => {
     const currentComponent = this;
 
-    this.state.value.length>=2 && fetch(`https://www.omdbapi.com/?apikey=ffc03c92&s=${this.state.value}`)
+    fetch(`https://www.omdbapi.com/?apikey=ffc03c92&s=${this.state.value}`)
     .then(response => response.json())
     .then((data) => {
       if (data.Response !== "False") {
@@ -118,6 +118,9 @@ class Header extends React.Component {
   );
 
   render() {
+
+    console.log(suggestions);
+    console.log(value);
 
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;

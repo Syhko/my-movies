@@ -10,7 +10,7 @@ ReactDOM.render(
   <Router>
     <div>
       <Route exact path="/" component={Connexion} />
-      <Route path="/movies/:pseudo" render={(props) => <App {...props} />}/>
+      <Route exact path="/movies/:pseudo" component={App} />}/>
     </div>
   </Router>,
   document.getElementById('root'),
