@@ -15,8 +15,8 @@ class Header extends React.Component {
     writer: '',
     plot: '',
     ratings: '',
-    value: '',
     imdbID: '',
+    value: '',
     listMovies: [],
     suggestions: [],
   };
