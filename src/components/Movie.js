@@ -8,7 +8,7 @@ class Movie extends React.Component {
       <div className="fiche" id={this.props.id} >
 
         <img
-          className={ this.props.seen ? "poster_seen" : "poster_unseen" }
+          className="poster"
           src={this.props.poster}
           width="250"
           height="350"
