@@ -22,15 +22,13 @@ class Header extends React.Component {
   };
 
   onChange = (event, { newValue }) => {
+    this.setState({ value : newValue });
     this.requestFetchSuggestion();
-    this.setState({
-      value: newValue,
-    });
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: this.getSuggestions(value)
+      suggestions: this.getSuggestions(value),
     });
   };
 
@@ -40,14 +38,13 @@ class Header extends React.Component {
     });
   };
 
-  getSuggestionValue = suggestion => suggestion.Title
+  getSuggestionValue = suggestion => suggestion.title
 
   getSuggestions = (value) => {
     const inputValue = value.toLowerCase();
     const inputLength = inputValue.length;
 
-    return this.state.listMovies !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
-      list.Title.toLowerCase().slice(0, inputLength) === inputValue);
+    return this.state.listMovies === undefined ? [] : this.state.listMovies.slice(0, 10);
   };
 
   createMovie = async (event) => {
@@ -77,15 +74,13 @@ class Header extends React.Component {
   requestFetchSuggestion = () => {
     const currentComponent = this;
 
-    fetch(`https://www.omdbapi.com/?apikey=ffc03c92&s=${this.state.value}`)
-    .then(response => response.json())
-    .then((data) => {
-      if (data.Response !== "False") {
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
+      .then(response => response.json())
+      .then((data) => {
         console.log(data);
-        const dataArray=Object.values(data).slice(0,1);
-      return currentComponent.setState ({ listMovies : dataArray[0] })
-    }
-      })
+        const dataArray = data.results;
+        return currentComponent.setState ({ listMovies : dataArray })
+      });
 
   }
 
@@ -115,11 +110,21 @@ class Header extends React.Component {
 
   renderSuggestion = suggestion => (
       <div>
-        {suggestion.Title} {suggestion.Year}
+        {suggestion.title}
       </div>
   );
 
+  newFetch = () => {
+    fetch(`https://api.themoviedb.org/3/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${"___"}&page=1&include_adult=false`)
+    .then(response => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+
   render() {
+
+    console.log(this.state.listMovies);
 
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;
@@ -132,6 +137,7 @@ class Header extends React.Component {
 
     return (
       <header className="bandeau">
+        <button onClick={this.newFetch}>TEST</button>
         <h1 className="titleText">Welcome {pseudo.charAt(0).toUpperCase()+pseudo.slice(1)} </h1>
         <form className="addForm" ref={input => this.addForm = input} onSubmit={e => this.createMovie(e)} >
           <Autosuggest
