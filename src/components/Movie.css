@@ -1,18 +1,9 @@
-.poster_seen {
-  box-shadow: 3px 3px 3px green;
-}
-
-.poster_unseen {
-  box-shadow: 3px 3px 3px red;
-}
-
 .fiche {
 	font-family: 'Titillium Web';
 	font-weight: bold;
 	color: #aaaaaa;
 	font-size: 18px;
 	position : relative;
-	height: 380px;
 }
 
 .overlayButton {

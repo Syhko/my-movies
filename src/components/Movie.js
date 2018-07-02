@@ -10,8 +10,6 @@ class Movie extends React.Component {
         <img
           className="poster"
           src={this.props.poster}
-          width="250"
-          height="350"
           alt=""
           onClick={() => this.props.handleClick(this.props.id)}
         />

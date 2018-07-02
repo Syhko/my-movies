@@ -19,11 +19,8 @@ class App extends PureComponent {
     searchText: null,
     posterFocus: '',
     titleFocus: '',
-    actorsFocus: '',
     genreFocus: '',
-    yearFocus: '',
-    awardsFocus: '',
-    writerFocus: '',
+    dateFocus: '',
     plotFocus: '',
     ratingsFocus: '',
   }
@@ -42,7 +39,7 @@ class App extends PureComponent {
 
   addMovie = (movie) => {
     const movies = { ...this.state.movies };
-    let isPresent = Object.values(movies).find(x => x.imdbID === movie.imdbID);
+    let isPresent = Object.values(movies).find(x => x.imdbId === movie.imdbId);
     if (isPresent === undefined) {
       const timestamp = Date.now();
       movies[`movie-${timestamp}`] = movie;
@@ -66,7 +63,12 @@ class App extends PureComponent {
   clickMovie = (id) => {
     const movies = { ...this.state.movies };
     this.setState({
-      posterFocus: movies[id].poster, titleFocus: movies[id].title, actorsFocus: movies[id].actors, genreFocus: movies[id].genre, yearFocus: movies[id].year, awardsFocus: movies[id].awards, writerFocus: movies[id].writer, plotFocus: movies[id].plot, ratingsFocus: movies[id].ratings,
+      posterFocus: movies[id].poster,
+      titleFocus: movies[id].title,
+      genreFocus: movies[id].genre,
+      dateFocus: movies[id].date,
+      plotFocus: movies[id].plot,
+      ratingsFocus: movies[id].ratings,
     });
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
@@ -92,21 +94,17 @@ class App extends PureComponent {
       .map(key =>
         (<CSSTransition key={key} timeout={500} classNames="fade">
           <Movie
-            seen={"poster_seen"}
             key={key}
             id={key}
-            poster={movies[key].poster}
+            poster={"http://image.tmdb.org/t/p/w185/"+movies[key].poster}
             title={movies[key].title}
-            actors={movies[key].actors}
             genre={movies[key].genre}
-            year={movies[key].year}
-            awards={movies[key].awards}
-            writer={movies[key].writer}
+            date={movies[key].date}
             plot={movies[key].plot}
             ratings={movies[key].ratings}
+            imdbId={movies[key].imdbId}
             deleteMovie={this.deleteMovie}
-            handleClick={this.clickMovie}
-            imdbID={movies[key].imdbID}/>
+            handleClick={this.clickMovie}/>
          </CSSTransition>
         ));
 
@@ -122,13 +120,10 @@ class App extends PureComponent {
           <React.Fragment>
             {this.state.showMovieFocus ?
               <MovieFocus
-                poster={this.state.posterFocus}
+                poster={"http://image.tmdb.org/t/p/w185/"+this.state.posterFocus}
                 title={this.state.titleFocus}
-                actors={this.state.actorsFocus}
                 genre={this.state.genreFocus}
-                year={this.state.yearFocus}
-                awards={this.state.awardsFocus}
-                writer={this.state.writerFocus}
+                date={this.state.dateFocus}
                 plot={this.state.plotFocus}
                 ratings={this.state.ratingsFocus}
               /> : null}
