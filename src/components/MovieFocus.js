@@ -10,10 +10,6 @@ class MovieFocus extends React.Component {
 
     return (
       <div className="wrapper">
-        <div className="seen_box">
-          <input type="checkbox" checked={isChecked}/>
-          <p>Seen</p>
-        </div>
         <div className="row">
           <div className="row_cell">
             <img className="imageFocus" src={poster} alt="" />
