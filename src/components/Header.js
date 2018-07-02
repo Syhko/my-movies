@@ -17,6 +17,7 @@ class Header extends React.Component {
     ratings: '',
     imdbID: '',
     value: '',
+    matchingValue: '',
     listMovies: [],
     suggestions: [],
   };
@@ -77,7 +78,6 @@ class Header extends React.Component {
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
       .then(response => response.json())
       .then((data) => {
-        console.log(data);
         const dataArray = data.results;
         return currentComponent.setState ({ listMovies : dataArray })
       });
@@ -114,6 +114,16 @@ class Header extends React.Component {
       </div>
   );
 
+  onSuggestionSelected = async (event, { suggestionValue }) => {
+    await this.setState ({ matchingValue : suggestionValue });
+    const selectedId = this.state.listMovies.filter(x => x.title === this.state.value)[0].id;
+    fetch(`https://api.themoviedb.org/3/movie/${selectedId}?api_key=83429be555fee4df5b40acab7217acf8&language=en-US`)
+      .then(response => response.json())
+        .then((data) => {
+          console.log(data);
+        })
+  }
+
   newFetch = () => {
     fetch(`https://api.themoviedb.org/3/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${"___"}&page=1&include_adult=false`)
     .then(response => response.json())
@@ -124,13 +134,12 @@ class Header extends React.Component {
 
   render() {
 
-    console.log(this.state.listMovies);
-
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;
     const inputProps = {
       placeholder: 'Search a movie',
       value,
+      type: 'search',
       onChange: this.onChange
     }
 
@@ -147,6 +156,7 @@ class Header extends React.Component {
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
+            onSuggestionSelected={this.onSuggestionSelected}
           />
           {/*<button type="submit" className="addButton">Add</button>*/}
         </form>
