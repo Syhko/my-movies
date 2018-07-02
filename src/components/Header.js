@@ -41,36 +41,34 @@ class Header extends React.Component {
     const selectedId = this.state.listMovies.filter(x => x.title === this.state.value)[0].id;
     await fetch(`https://api.themoviedb.org/3/movie/${selectedId}?api_key=83429be555fee4df5b40acab7217acf8&language=en-US`)
       .then(response => response.json())
-        .then((data) => {
-          console.log(data);
-          const poster = data.poster_path;
-          const title = data.title;
-          const date = data.release_date;
-          const genre = data.genres[0].name;
-          const plot = data.overview;
-          const ratings = data.vote_average;
-          const imdbId = data.imdb_id;
+      .then((data) => {
+        const poster = data.poster_path;
+        const title = data.title;
+        const date = data.release_date;
+        const genre = data.genres[0].name;
+        const plot = data.overview;
+        const ratings = data.vote_average;
+        const imdbId = data.imdb_id;
 
-          return currentComponent.setState({
-            poster, title, date, genre, plot, ratings, imdbId
-          }, () => true);
-        })
-        const movie = {
-          poster: this.state.poster,
-          title: this.state.title,
-          date: this.state.date,
-          genre: this.state.genre,
-          plot: this.state.plot,
-          ratings: this.state.ratings,
-          imdbId: this.state.imdbId
-        };
-        if (movie.poster === 'N/A') {
-          alert('NO IMAGE FOUND');
-          return false;
-        }
-        this.props.addMovie(movie);
-        await this.addForm.reset();
-        await this.setState({ value: '' });
+          return currentComponent.setState({ poster, title, date, genre, plot, ratings, imdbId }
+        ,() => true);
+      })
+    const movie = {
+      poster: this.state.poster,
+      title: this.state.title,
+      date: this.state.date,
+      genre: this.state.genre,
+      plot: this.state.plot,
+      ratings: this.state.ratings,
+      imdbId: this.state.imdbId
+    };
+    if (movie.poster === 'N/A') {
+      alert('NO IMAGE FOUND');
+      return false;
+    }
+    this.props.addMovie(movie);
+    await this.addForm.reset();
+    await this.setState({ value: '' });
   }
 
   getSuggestionValue = suggestion => suggestion.title
@@ -91,9 +89,9 @@ class Header extends React.Component {
   }
 
   renderSuggestion = suggestion => (
-      <div>
-        {suggestion.title}
-      </div>
+    <div>
+      {suggestion.title}
+    </div>
   );
 
   render() {
@@ -101,7 +99,7 @@ class Header extends React.Component {
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: 'Search a movie',
+      placeholder: 'Search...',
       value,
       type: 'search',
       onChange: this.onChange
@@ -110,8 +108,8 @@ class Header extends React.Component {
 
     return (
       <header className="bandeau">
-        <h1 className="titleText">Welcome {pseudo.charAt(0).toUpperCase()+pseudo.slice(1)} </h1>
-        <form className="addForm" ref={input => this.addForm = input} /*onSubmit={e => this.createMovie(e)}*/ >
+        <h1 className="titleText">{pseudo.charAt(0).toUpperCase()+pseudo.slice(1)} </h1>
+        <form className="addForm" ref={input => this.addForm = input}>
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -122,7 +120,7 @@ class Header extends React.Component {
             onSuggestionSelected={this.onSuggestionSelected}
           />
         </form>
-        <Link to="/"><button className="homeButton">Return to Login Page</button></Link>
+        <Link to="/" className="link"><button className="homeButton">Home</button></Link>
       </header>
     );
   }
