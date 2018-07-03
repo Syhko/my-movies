@@ -1,6 +1,10 @@
+// REACT ROUTER
 import { Link } from 'react-router-dom';
-import Autosuggest from 'react-autosuggest';
+// REACT
 import React from 'react';
+// COMPONENTS
+import Autosuggest from 'react-autosuggest';
+// STYLE
 import './Header.css';
 
 
@@ -31,7 +35,7 @@ class Header extends React.Component {
 
   onSuggestionsClearRequested = () => {
     this.setState({
-      suggestions: []
+      suggestions: [],
     });
   };
 
@@ -50,8 +54,8 @@ class Header extends React.Component {
         const ratings = data.vote_average;
         const imdbId = data.imdb_id;
 
-          return currentComponent.setState({ poster, title, date, genre, plot, ratings, imdbId }
-        ,() => true);
+        return currentComponent.setState({ poster, title, date, genre, plot, ratings, imdbId }
+          , () => true);
       })
     const movie = {
       poster: this.state.poster,
@@ -62,10 +66,6 @@ class Header extends React.Component {
       ratings: this.state.ratings,
       imdbId: this.state.imdbId
     };
-    if (movie.poster === 'N/A') {
-      alert('NO IMAGE FOUND');
-      return false;
-    }
     this.props.addMovie(movie);
     await this.addForm.reset();
     await this.setState({ value: '' });

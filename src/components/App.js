@@ -96,6 +96,8 @@ class App extends PureComponent {
           <Movie
             key={key}
             id={key}
+            className={"fiche"}
+            buttonClassName={"overlayButton"}
             poster={"http://image.tmdb.org/t/p/w185/"+movies[key].poster}
             title={movies[key].title}
             genre={movies[key].genre}

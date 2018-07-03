@@ -19,6 +19,20 @@
   cursor: pointer;
 	}
 
+  .overlayButtonHidden {
+    display: none;
+  }
+
+  .ficheNoClick {
+    font-family: 'Titillium Web';
+  	font-weight: bold;
+  	color: #aaaaaa;
+  	font-size: 18px;
+  	position : relative;
+    margin: 5px;
+    pointer-events: none;   
+  }
+
 .overlayButton:focus {
 	outline:0 !important;
 	color: #ffffff;

@@ -3,14 +3,14 @@ import './Movie.css';
 
 function Movie(props) {
   return (
-    <div className="fiche" id={props.id} >
+    <div className={props.className} id={props.id} >
       <img
         className="poster"
         src={props.poster}
         alt=""
         onClick={() => props.handleClick(props.id)}
       />
-      <button onClick={() => props.deleteMovie(props.id)} className="overlayButton"><strong>X</strong></button>
+      <button onClick={() => props.deleteMovie(props.id)} className={props.buttonClassName}><strong>X</strong></button>
     </div>
     );
 }
