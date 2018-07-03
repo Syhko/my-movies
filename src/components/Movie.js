@@ -10,7 +10,7 @@ function Movie(props) {
         alt=""
         onClick={() => props.handleClick(props.id)}
       />
-      <button onClick={() => this.props.deleteMovie(props.id)} className="overlayButton"><strong>X</strong></button>
+      <button onClick={() => props.deleteMovie(props.id)} className="overlayButton"><strong>X</strong></button>
     </div>
     );
 }

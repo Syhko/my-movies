@@ -6,10 +6,22 @@ import { Link } from 'react-router-dom';
 import './Connexion.css';
 import logo_Syhko from './logo_Syhko.png';
 import logo_tmdb from './logo_tmdb.png';
+// COMPONENTS
+import Movie from './Movie';
 
 class Connexion extends PureComponent {
   state={
     pseudo: '',
+    newMoviesPosters : ''
+  }
+
+  componentWillMount() {
+    fetch("https://api.themoviedb.org/3/discover/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
+      .then(response => response.json())
+      .then((data) => {
+        const newMoviesPosters = data.results.map(x => x.poster_path);
+        this.setState({ newMoviesPosters})
+      });
   }
 
   updatePseudo = (e) => {
@@ -23,9 +35,17 @@ class Connexion extends PureComponent {
     }
   }
 
-
   render() {
-    const { pseudo } = this.state;
+    const { pseudo, newMoviesPosters } = this.state;
+
+    const newMovieList = Object.keys(newMoviesPosters)
+      .map(key =>
+        (<Movie
+          key={key}
+          id={key}
+          poster={"http://image.tmdb.org/t/p/w185/"+newMoviesPosters[key]}/>
+        ));
+
     return (
       <div className="component_connexion_wrapper">
         <img className="logo_tmdb" width="204" height="80" src={logo_tmdb}/>
@@ -46,6 +66,12 @@ class Connexion extends PureComponent {
             </button>
           </Link>
         </form>
+        <div className="newMovieswrapper">
+          <h1 className="newMovies_title">New in theater now</h1>
+          <div className="newMoviesGrid">
+            {newMovieList}
+          </div>
+        </div>
       </div>
 
     );

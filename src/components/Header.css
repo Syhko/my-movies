@@ -2,7 +2,9 @@
 	.titleText {
 		font-size: 10px;
 	}
-
+	.addForm {
+		width: 50%;
+	}
 
 
 }
