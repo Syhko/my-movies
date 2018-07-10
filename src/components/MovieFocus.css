@@ -1,25 +1,25 @@
-@media screen and (max-width: 800px) {
-	.imageFocus {
-		display: none;
+@media screen and (max-width: 700px) {
+	.window_wrapper {
+		width: 90%;
+		height: 80%;
 	}
- .row_plot {
-	 display: none;
- }
+	.imageFocus {
+		width: 70%;
+		height: 70%;
+	}
 }
 
-@media screen and (max-width: 900px) {
-	.wrapper {
+@media screen and (min-width: 900px) {
+	.window_wrapper {
+		width: 30%;
+	}
 }
 
+.window_wrapper {
 
-
-}
-
-.wrapper {
-	width: 30%;
 	background-color: #222222;
 	position: fixed;
-	top: 50%;
+	top: 55%;
 	left: 50%;
 	border-radius: 20px;
 	box-shadow: 10px 10px 10px #000;
@@ -27,6 +27,7 @@
 	color: #998855;
 	font-family: 'Titillium Web';
 	display: flex;
+	flex-grow: 10;
 	flex-direction: column;
 }
 
@@ -49,7 +50,7 @@
 
 .row_plot {
 	margin: 0px 10px 0px 10px;
-	font-size: 15px;
+	font-size: 14px;
 	color: #458965;
 }
 

@@ -3,7 +3,7 @@ import './MovieFocus.css';
 
 function MovieFocus(props) {
   return (
-    <div className="wrapper">
+    <div className="window_wrapper">
       <div className="row">
         <div className="row_cell">
           <img className="imageFocus" src={props.poster} alt="" />
