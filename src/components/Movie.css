@@ -1,3 +1,6 @@
+@media screen and (max-width: 700px) {
+}
+
 .fiche {
 	font-family: 'Titillium Web';
 	font-weight: bold;
@@ -30,7 +33,7 @@
   	font-size: 18px;
   	position : relative;
     margin: 5px;
-    pointer-events: none;   
+    pointer-events: none;
   }
 
 .overlayButton:focus {

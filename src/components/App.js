@@ -73,10 +73,10 @@ class App extends PureComponent {
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
 
-//Unused ATM
-  /*closeMovieFocus = () => {
+
+  closeMovieFocus = () => {
     this.setState({ showMovieFocus: false });
-  }*/
+  }
 
   render() {
     const { movies } = this.state;
@@ -128,6 +128,7 @@ class App extends PureComponent {
                 date={this.state.dateFocus}
                 plot={this.state.plotFocus}
                 ratings={this.state.ratingsFocus}
+                closeMovieFocus={this.closeMovieFocus}
               /> : null}
           </React.Fragment>
         </CSSTransition>

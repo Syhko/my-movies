@@ -7,6 +7,14 @@
 		width: 70%;
 		height: 70%;
 	}
+	.fiche{
+		width:148px;
+		height:228px;
+	}
+	.poster{
+		width:148px;
+		height:228px;
+	}
 }
 
 @media screen and (min-width: 900px) {
@@ -27,7 +35,6 @@
 	color: #998855;
 	font-family: 'Titillium Web';
 	display: flex;
-	flex-grow: 10;
 	flex-direction: column;
 }
 
@@ -41,6 +48,7 @@
 
 .row {
 	display: flex;
+	margin-top: 5px;
 }
 
 .row_cell {
@@ -48,14 +56,33 @@
 	align-self: center;
 }
 
-.row_plot {
-	margin: 0px 10px 0px 10px;
+.content {
 	font-size: 14px;
+}
+
+.row_plot {
+	margin: 0px 5px 0px 0px;
+	font-size: 13px;
 	color: #458965;
 }
 
 .footer {
 	color: #889944;
 	justify-content: space-around;
+}
 
+.closeMovieFocusButton {
+	position: absolute;
+	top : 1%;
+	right: 2%;
+	border : none;
+	background: rgba(250,250,250,0);
+	color: #dd0044;
+	font-size: 12px;
+	font-family: 'Titillium Web';
+}
+
+.closeMovieFocusButton:focus {
+	outline:0 !important;
+	color: #ffffff;
 }

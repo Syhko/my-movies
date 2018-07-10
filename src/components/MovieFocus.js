@@ -4,6 +4,7 @@ import './MovieFocus.css';
 function MovieFocus(props) {
   return (
     <div className="window_wrapper">
+      <button className="closeMovieFocusButton" onClick={props.closeMovieFocus}>Close</button>
       <div className="row">
         <div className="row_cell">
           <img className="imageFocus" src={props.poster} alt="" />
