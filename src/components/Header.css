@@ -3,10 +3,17 @@
 		font-size: 10px;
 	}
 	.addForm {
-		width: 50%;
+		width: 45%;
 	}
+}
 
-
+@media screen and (min-width: 600px) {
+	.titleText {
+		font-size: 10px;
+	}
+	.addForm {
+		width: 30%;
+	}
 }
 
 .bandeau {
@@ -14,11 +21,11 @@
 	background-color: #222222;
 	display: flex;
 	justify-content: space-between;
-	height: 10%;
 	top: 0;
 	z-index: 99;
 	position: fixed;
 	width: 100%;
+	height: 12%;
 }
 
 .titleText {
@@ -45,7 +52,7 @@
 
 .addForm {
 	display: flex;
-	width: 30%;
+	margin: 0 auto;
 }
 
 .react-autosuggest__container {
