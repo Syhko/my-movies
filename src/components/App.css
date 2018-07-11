@@ -2,6 +2,38 @@
   text-align: center;
 }
 
+.editTriggerButton {
+  background-color: #fff;
+  border: none;
+  position:absolute;
+  top: 80px;
+  right: 3%;
+  font-family: 'Titillium Web';
+  font-size: 16px;
+  border-radius: 5px;
+  width: 60px;
+}
+
+.editTriggerButton:focus {
+	outline:0 !important;
+}
+
+.editTriggerButtonExit {
+  background-color: #880000;
+  border: none;
+  position:absolute;
+  top: 80px;
+  right: 3%;
+  font-family: 'Titillium Web';
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100px;
+}
+
+.editTriggerButtonExit:focus {
+	outline:0 !important;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -9,7 +41,6 @@
   margin: 7px;
   position: relative;
   top: 112px;
-
 }
 
 .fade-enter {

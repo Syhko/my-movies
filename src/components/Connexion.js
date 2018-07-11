@@ -43,8 +43,10 @@ class Connexion extends PureComponent {
         (<Movie
           key={key}
           id={key}
-          className={"ficheNoClick"}
-          buttonClassName={"overlayButtonHidden"}
+          ficheType={"noClickableFiche"}
+          posterType={"posterNeutral"}
+          showDeleteMovie={"showDeleteMovieHidden"}
+          hasBeenSeen={"hasBeenSeenHidden"}
           poster={"http://image.tmdb.org/t/p/w185/"+newMoviesPosters[key]}/>
         ));
 

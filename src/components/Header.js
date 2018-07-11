@@ -7,7 +7,7 @@ import Autosuggest from 'react-autosuggest';
 // STYLE
 import './Header.css';
 
-
+const BASE_API_PATH = 'https://api.themoviedb.org/3';
 class Header extends React.Component {
   state = {
     poster: '',
@@ -43,11 +43,11 @@ class Header extends React.Component {
     const currentComponent = this;
     await this.setState ({ matchingValue: suggestionValue });
     const selectedId = this.state.listMovies.filter(x => x.title === this.state.value)[0].id;
-    await fetch(`https://api.themoviedb.org/3/movie/${selectedId}?api_key=83429be555fee4df5b40acab7217acf8&language=en-US`)
+    await fetch(`${BASE_API_PATH}/movie/${selectedId}?api_key=83429be555fee4df5b40acab7217acf8&language=en-US`)
       .then(response => response.json())
       .then((data) => {
         const poster = data.poster_path;
-        const title = data.title;
+        const { title } = data;
         const date = data.release_date;
         const genre = data.genres[0].name;
         const plot = data.overview;
@@ -80,7 +80,7 @@ class Header extends React.Component {
   requestFetchSuggestion = () => {
     const currentComponent = this;
 
-    fetch(`https://api.themoviedb.org/3/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
+    fetch(`${BASE_API_PATH}/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
       .then(response => response.json())
       .then((data) => {
         const dataArray = data.results;

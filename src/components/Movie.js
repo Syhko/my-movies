@@ -1,18 +1,27 @@
 import React from 'react';
 import './Movie.css';
 
-function Movie(props) {
-  return (
-    <div className={props.className} id={props.id} >
+const Movie = ({
+  id,
+  poster,
+  showDeleteMovie,
+  hasBeenSeen,
+  handleClick,
+  deleteMovie,
+  ficheType,
+  posterType,
+  isMovieSeen
+}) => (
+    <div className={ficheType} id={id} >
       <img
-        className="poster"
-        src={props.poster}
+        className={posterType}
+        src={poster}
         alt=""
-        onClick={() => props.handleClick(props.id)}
+        onClick={() => handleClick(id)}
       />
-      <button onClick={() => props.deleteMovie(props.id)} className={props.buttonClassName}><strong>X</strong></button>
+      <button onClick={() => deleteMovie(id)} className={showDeleteMovie}><strong>X</strong></button>
+      <input className={hasBeenSeen} type="checkbox" onChange={() => isMovieSeen(id)}></input>
     </div>
-    );
-}
+    )
 
 export default Movie;

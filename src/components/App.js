@@ -23,6 +23,9 @@ class App extends PureComponent {
     dateFocus: '',
     plotFocus: '',
     ratingsFocus: '',
+    hasBeenSeen: 'hasBeenSeenHidden',
+    showDeleteMovie: 'showDeleteMovieHidden',
+    triggerButtonState: 'editTriggerButton',
   }
 
   // Synchro with firebase
@@ -73,21 +76,29 @@ class App extends PureComponent {
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
 
+  triggerEdit = () => {
+    this.state.hasBeenSeen === 'hasBeenSeenHidden' ?
+    this.setState({ hasBeenSeen : 'hasBeenSeen', showDeleteMovie : 'showDeleteMovie', triggerButtonState: 'editTriggerButtonExit' }) :
+    this.setState({ hasBeenSeen : 'hasBeenSeenHidden', showDeleteMovie : 'showDeleteMovieHidden', triggerButtonState: 'editTriggerButton' });
+  }
+
+  isMovieSeen = (id) => {
+    console.log("ok");
+  }
 
   closeMovieFocus = () => {
     this.setState({ showMovieFocus: false });
   }
 
   render() {
-    const { movies } = this.state;
-
+    const { movies, searchText, showDeleteMovie, hasBeenSeen, triggerButtonState, showMovieFocus, titleFocus, genreFocus, dateFocus, plotFocus, ratingsFocus } = this.state;
 
     let filteredMovies = Object.keys(movies).reverse();
-    if (this.state.searchText !== null && this.state.searchText.length >= 3) {
+    if (searchText !== null && searchText.length >= 3) {
       filteredMovies = Object
         .keys(movies)
         .reverse()
-        .filter(movieKey => movies[movieKey].title.toLowerCase().includes(this.state.searchText));
+        .filter(movieKey => movies[movieKey].title.toLowerCase().includes(searchText));
     }
 
     const movieList = filteredMovies
@@ -96,8 +107,10 @@ class App extends PureComponent {
           <Movie
             key={key}
             id={key}
-            className={"fiche"}
-            buttonClassName={"overlayButton"}
+            ficheType={"clickableFiche"}
+            posterType={"posterUnSeen"}
+            showDeleteMovie={showDeleteMovie}
+            hasBeenSeen={hasBeenSeen}
             poster={"http://image.tmdb.org/t/p/w185/"+movies[key].poster}
             title={movies[key].title}
             genre={movies[key].genre}
@@ -106,7 +119,8 @@ class App extends PureComponent {
             ratings={movies[key].ratings}
             imdbId={movies[key].imdbId}
             deleteMovie={this.deleteMovie}
-            handleClick={this.clickMovie}/>
+            handleClick={this.clickMovie}
+            isMovieSeen={this.isMovieSeen}/>
          </CSSTransition>
         ));
 
@@ -114,11 +128,11 @@ class App extends PureComponent {
 
       <div className="App">
         <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
+        <button className={triggerButtonState} onClick={this.triggerEdit}>{hasBeenSeen === 'hasBeenSeenHidden' ? 'Edit' : 'Quit editing'}</button>
         <TransitionGroup className="grid">
-          {/*<MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />*/}
           {movieList}
         </TransitionGroup>
-        <CSSTransition in={this.state.showMovieFocus === true} timeout={500} classNames="fade">
+        <CSSTransition in={showMovieFocus === true} timeout={500} classNames="fade">
           <React.Fragment>
             {this.state.showMovieFocus ?
               <MovieFocus
