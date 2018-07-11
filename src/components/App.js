@@ -146,7 +146,7 @@ class App extends PureComponent {
             deleteMovie={this.deleteMovie}
             handleClick={this.clickMovie}
             isMovieSeen={this.isMovieSeen}
-            ischecked={isSeenCheckBoxes[key].isSeen}/>
+            isChecked={isSeenCheckBoxes[key].isSeen}/>
          </CSSTransition>
         ));
 
