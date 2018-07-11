@@ -64,9 +64,13 @@ class Header extends React.Component {
       genre: this.state.genre,
       plot: this.state.plot,
       ratings: this.state.ratings,
-      imdbId: this.state.imdbId
+      imdbId: this.state.imdbId,
+      isSeen: 'posterUnSeen',
     };
-    this.props.addMovie(movie);
+    const isSeenCheckBox = {
+      isSeen: false
+    };
+    this.props.addMovie(movie, isSeenCheckBox);
     await this.addForm.reset();
     await this.setState({ value: '' });
   }

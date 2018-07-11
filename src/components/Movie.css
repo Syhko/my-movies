@@ -7,7 +7,15 @@
     width:148px;
     height:228px;
   }
-	.poster{
+	.posterNeutral {
+		width:148px;
+		height:228px;
+	}
+  .posterUnSeen {
+		width:148px;
+		height:228px;
+	}
+  .posterSeen {
 		width:148px;
 		height:228px;
 	}

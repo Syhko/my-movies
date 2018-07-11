@@ -10,7 +10,8 @@ const Movie = ({
   deleteMovie,
   ficheType,
   posterType,
-  isMovieSeen
+  isMovieSeen,
+  isChecked
 }) => (
     <div className={ficheType} id={id} >
       <img
@@ -20,7 +21,7 @@ const Movie = ({
         onClick={() => handleClick(id)}
       />
       <button onClick={() => deleteMovie(id)} className={showDeleteMovie}><strong>X</strong></button>
-      <input className={hasBeenSeen} type="checkbox" onChange={() => isMovieSeen(id)}></input>
+      <input className={hasBeenSeen} type="checkbox" checked={isChecked} onChange={() => isMovieSeen(id)}></input>
     </div>
     )
 
