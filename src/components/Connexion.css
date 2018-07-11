@@ -15,7 +15,7 @@
 	width: 20%;
 	height: 20px;
 	border: none;
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid #00D573;
 	background-color: inherit;
 	color: #aaaaaa;
 }
@@ -31,8 +31,8 @@
   border: none;
   width: 150px;
   height: 30px;
-  color: #aaaaaa;
-  background-color: #880000;
+  color: #111111;
+  background-color: #00D573;
   box-shadow: 1px 1px 1px #000;
 }
 
