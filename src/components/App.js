@@ -133,7 +133,7 @@ class App extends PureComponent {
             key={key}
             id={key}
             ficheType={"clickableFiche"}
-            posterType={isSeenCheckBoxes[key].isSeen ===true ? "posterSeen" : "posterUnSeen" }
+            posterType={isSeenCheckBoxes[key].isSeen === true ? "posterSeen" : "posterUnSeen" }
             showDeleteMovie={showDeleteMovie}
             hasBeenSeen={hasBeenSeen}
             poster={"http://image.tmdb.org/t/p/w185/"+movies[key].poster}

@@ -8,6 +8,7 @@ import Autosuggest from 'react-autosuggest';
 import './Header.css';
 
 const BASE_API_PATH = 'https://api.themoviedb.org/3';
+const API_KEY = '83429be555fee4df5b40acab7217acf8';
 class Header extends React.Component {
   state = {
     poster: '',
@@ -43,7 +44,7 @@ class Header extends React.Component {
     const currentComponent = this;
     await this.setState ({ matchingValue: suggestionValue });
     const selectedId = this.state.listMovies.filter(x => x.title === this.state.value)[0].id;
-    await fetch(`${BASE_API_PATH}/movie/${selectedId}?api_key=83429be555fee4df5b40acab7217acf8&language=en-US`)
+    await fetch(`${BASE_API_PATH}/movie/${selectedId}?api_key=${API_KEY}&language=en-US`)
       .then(response => response.json())
       .then((data) => {
         const poster = data.poster_path;
@@ -75,7 +76,7 @@ class Header extends React.Component {
     await this.setState({ value: '' });
   }
 
-  getSuggestionValue = suggestion => suggestion.title
+  getSuggestionValue = suggestion => suggestion.title;
 
   getSuggestions = (value) => {
     return this.state.listMovies === undefined ? [] : this.state.listMovies.slice(0, 10);
@@ -84,7 +85,7 @@ class Header extends React.Component {
   requestFetchSuggestion = () => {
     const currentComponent = this;
 
-    fetch(`${BASE_API_PATH}/search/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
+    fetch(`${BASE_API_PATH}/search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
       .then(response => response.json())
       .then((data) => {
         const dataArray = data.results;

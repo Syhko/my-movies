@@ -30,6 +30,16 @@
   margin: 5px;
 }
 
+.noClickableFiche {
+  font-family: 'Titillium Web';
+	font-weight: bold;
+	color: #aaaaaa;
+	font-size: 18px;
+	position : relative;
+  margin: 5px;
+  pointer-events: none;
+  }
+
 .posterNeutral {
 }
 
@@ -59,6 +69,8 @@
     position: absolute;
   	top : 0.2%;
   	left: 0.2%;
+    height: 20px;
+    width: 20px;
   }
 
   .showDeleteMovieHidden {
@@ -67,16 +79,6 @@
 
   .hasBeenSeenHidden {
     display: none;
-  }
-
-  .noClickableFiche {
-    font-family: 'Titillium Web';
-  	font-weight: bold;
-  	color: #aaaaaa;
-  	font-size: 18px;
-  	position : relative;
-    margin: 5px;
-    pointer-events: none;
   }
 
 .overlayButton:focus {

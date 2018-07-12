@@ -9,6 +9,10 @@ import logo_tmdb from './logo_tmdb.png';
 // COMPONENTS
 import Movie from './Movie';
 
+//CONSTANTS
+const BASE_API_PATH = 'https://api.themoviedb.org/3';
+const API_KEY = '83429be555fee4df5b40acab7217acf8';
+
 class Connexion extends PureComponent {
   state={
     pseudo: '',
@@ -16,13 +20,20 @@ class Connexion extends PureComponent {
   }
 
   componentWillMount() {
-    fetch("https://api.themoviedb.org/3/discover/movie?api_key=83429be555fee4df5b40acab7217acf8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1")
-      .then(response => response.json())
-      .then((data) => {
-        const newMoviesPosters = data.results.map(x => x.poster_path);
-        this.setState({ newMoviesPosters})
-      });
-  }
+    fetch(`${BASE_API_PATH}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`)
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log(`Error: ${response.status}`);
+          return;
+        }
+
+        response.json()
+          .then((data) => {
+            const newMoviesPosters = data.results.map(x => x.poster_path);
+            this.setState({ newMoviesPosters});
+          });
+      })
+}
 
   updatePseudo = (e) => {
     this.setState({ pseudo: e.target.value });
