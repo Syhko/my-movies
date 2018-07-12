@@ -1,18 +1,36 @@
 @media screen and (max-width: 600px) {
 	.titleText {
-		font-size: 10px;
+		font-size: 15px;
 	}
 	.addForm {
-		width: 45%;
+		width: 60%;
+	}
+	.react-autosuggest__input::-webkit-input-placeholder {
+		font-size: 10px;
 	}
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width:600px) and (max-width: 900px) {
 	.titleText {
-		font-size: 10px;
+		font-size: 20px;
+	}
+	.addForm {
+		width: 40%;
+	}
+	.react-autosuggest__input::-webkit-input-placeholder {
+		font-size: 13px;
+	}
+}
+
+@media screen and (min-width: 900px) {
+	.titleText {
+		font-size: 25px;
 	}
 	.addForm {
 		width: 30%;
+	}
+	.react-autosuggest__input::-webkit-input-placeholder {
+		font-size: 15px;
 	}
 }
 
@@ -30,7 +48,6 @@
 
 .titleText {
 	font-family: 'Titillium Web';
-	font-size: 25px;
 	margin-left: 20px;
 	align-self: center;
 }
@@ -81,22 +98,25 @@
 .react-autosuggest__input {
 	font-family: 'Titillium Web';
 	font-size: 15px;
-	width: 100%;
+	width: 25%;
 	height: 20px;
 	border: none;
   border-bottom: 2px solid #00D573;
 	background-color: inherit;
 	color: #aaaaaa;
+	transition: all 1s;
 }
 
 .react-autosuggest__input::-webkit-input-placeholder {
 	font-family: 'Titillium Web';
-	font-size: 15px;
 	color: #aaaaaa;
+	text-align: left;
 }
 
 .react-autosuggest__input:focus {
 	outline: none;
+	width: 100%;
+	transition: all 1s;
 }
 
 .react-autosuggest__container {

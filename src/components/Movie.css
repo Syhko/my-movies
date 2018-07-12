@@ -51,7 +51,13 @@
   box-shadow: 2px 2px 5px green;
 }
 
+.posterSeen:hover {
+  box-shadow: 5px 5px 5px green;
+}
 
+.posterUnSeen:hover {
+  box-shadow: 5px 5px 5px red;
+}
 
 .showDeleteMovie {
 	position: absolute;

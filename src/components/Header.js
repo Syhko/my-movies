@@ -6,9 +6,10 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 // STYLE
 import './Header.css';
-
+// CONSTANTS
 const BASE_API_PATH = 'https://api.themoviedb.org/3';
 const API_KEY = '83429be555fee4df5b40acab7217acf8';
+
 class Header extends React.Component {
   state = {
     poster: '',
@@ -104,7 +105,7 @@ class Header extends React.Component {
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: 'Search...',
+      placeholder: 'Search',
       value,
       type: 'search',
       onChange: this.onChange

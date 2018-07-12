@@ -85,7 +85,7 @@ class App extends PureComponent {
 
   triggerEdit = () => {
     this.state.hasBeenSeen === 'hasBeenSeenHidden' ?
-    this.setState({ hasBeenSeen : 'hasBeenSeen', showDeleteMovie : 'showDeleteMovie', triggerButtonState: 'editTriggerButtonExit' }) :
+    this.setState({ hasBeenSeen : 'hasBeenSeen', showDeleteMovie : 'showDeleteMovie', triggerButtonState: 'editTriggerButtonExit' }):
     this.setState({ hasBeenSeen : 'hasBeenSeenHidden', showDeleteMovie : 'showDeleteMovieHidden', triggerButtonState: 'editTriggerButton' });
   }
 

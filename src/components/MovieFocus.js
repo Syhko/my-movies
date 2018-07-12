@@ -23,10 +23,10 @@ const MovieFocus = ({
       </div>
     </div>
     <div className="row_plot">
-      <p style={{ fontWeight: 'bold' }}> {plot} </p>
+      <p className="plot" style={{ fontWeight: 'bold' }}> {plot} </p>
     </div>
     <div className="footer">
-      <p className="rates" style={{ fontWeight: 'bold' }}>IMDB : {ratings} </p>
+      <p className="rates" style={{ fontWeight: 'bold' }}>IMDB Rating : {ratings} </p>
     </div>
   </div>
 )

@@ -29,7 +29,7 @@
 
 	background-color: #222222;
 	position: fixed;
-	top: 55%;
+	top: 58%;
 	left: 50%;
 	border-radius: 20px;
 	box-shadow: 10px 10px 10px #000;
@@ -63,14 +63,24 @@
 }
 
 .row_plot {
-	margin: 0px 5px 0px 0px;
+	margin-bottom: -10px;
 	font-size: 13px;
 	color: #458965;
+}
+
+.plot {
+	text-overflow: ellipsis;
 }
 
 .footer {
 	color: #889944;
 	justify-content: space-around;
+	height : 45px;
+}
+
+.rates {
+	height: 20px;
+	font-size: 14px;
 }
 
 .closeMovieFocusButton {

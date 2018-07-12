@@ -9,7 +9,7 @@ import logo_tmdb from './logo_tmdb.png';
 // COMPONENTS
 import Movie from './Movie';
 
-//CONSTANTS
+// CONSTANTS
 const BASE_API_PATH = 'https://api.themoviedb.org/3';
 const API_KEY = '83429be555fee4df5b40acab7217acf8';
 
@@ -20,7 +20,8 @@ class Connexion extends PureComponent {
   }
 
   componentWillMount() {
-    fetch(`${BASE_API_PATH}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`)
+    fetch(`${BASE_API_PATH}/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`)
+  //  fetch(`${BASE_API_PATH}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=true&page=1`)
       .then((response) => {
         if (response.status !== 200) {
           console.log(`Error: ${response.status}`);
@@ -82,7 +83,7 @@ class Connexion extends PureComponent {
           </Link>
         </form>
         <div className="newMovieswrapper">
-          <h1 className="newMovies_title">New in theater now</h1>
+          <h1 className="newMovies_title">News and upcomings</h1>
           <div className="newMoviesGrid">
             {newMovieList}
           </div>
