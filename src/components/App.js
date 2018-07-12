@@ -15,98 +15,138 @@ import base from '../base';
 class App extends PureComponent {
   state = {
     movies: {},
+    isSeenCheckBoxes: {},
     showMovieFocus: false,
     searchText: null,
     posterFocus: '',
     titleFocus: '',
-    actorsFocus: '',
     genreFocus: '',
-    yearFocus: '',
-    awardsFocus: '',
-    writerFocus: '',
+    dateFocus: '',
     plotFocus: '',
     ratingsFocus: '',
+    hasBeenSeen: 'hasBeenSeenHidden',
+    showDeleteMovie: 'showDeleteMovieHidden',
+    triggerButtonState: 'editTriggerButton',
   }
 
   // Synchro with firebase
-  componentWillMount() {
+  componentDidMount() {
+    this.ref = base.syncState(`${this.props.match.params.pseudo}/isSeenCheckBoxes`, {
+      context: this,
+      state: 'isSeenCheckBoxes',
+    });
     this.ref = base.syncState(`${this.props.match.params.pseudo}/movies`, {
       context: this,
       state: 'movies',
     });
   }
+
   // Desynchro with firebase
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
 
-  addMovie = (movie) => {
+  addMovie = (movie, isSeenCheckBox) => {
     const movies = { ...this.state.movies };
-    let isPresent = Object.values(movies).find(x => x.imdbID === movie.imdbID);
+    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes}
+    let isPresent = Object.values(movies).find(x => x.imdbId === movie.imdbId);
     if (isPresent === undefined) {
       const timestamp = Date.now();
-      movies[`movie-${timestamp}`] = movie;
+      movies[`${timestamp}`] = movie;
+      isSeenCheckBoxes[`${timestamp}`] = isSeenCheckBox;
       this.setState({ searchText: null });
-      this.setState({ movies });
+      this.setState({ movies, isSeenCheckBoxes });
     } else {
       alert('this movie already exist');
     }
-
   }
 
   deleteMovie = (id) => {
     const movies = { ...this.state.movies };
+    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes };
     movies[id] = null;
     this.setState({ movies });
+    isSeenCheckBoxes[id] = null;
+    this.setState({ isSeenCheckBoxes });
   }
-
-  // Unused for now
-  deleteAll = () => { this.setState({ movies: null }); }
 
   clickMovie = (id) => {
     const movies = { ...this.state.movies };
     this.setState({
-      posterFocus: movies[id].poster, titleFocus: movies[id].title, actorsFocus: movies[id].actors, genreFocus: movies[id].genre, yearFocus: movies[id].year, awardsFocus: movies[id].awards, writerFocus: movies[id].writer, plotFocus: movies[id].plot, ratingsFocus: movies[id].ratings,
+      posterFocus: movies[id].poster,
+      titleFocus: movies[id].title,
+      genreFocus: movies[id].genre,
+      dateFocus: movies[id].date,
+      plotFocus: movies[id].plot,
+      ratingsFocus: movies[id].ratings,
     });
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
 
-//Unused ATM
-  /*closeMovieFocus = () => {
+  triggerEdit = () => {
+    this.state.hasBeenSeen === 'hasBeenSeenHidden' ?
+    this.setState({ hasBeenSeen : 'hasBeenSeen', showDeleteMovie : 'showDeleteMovie', triggerButtonState: 'editTriggerButtonExit' }):
+    this.setState({ hasBeenSeen : 'hasBeenSeenHidden', showDeleteMovie : 'showDeleteMovieHidden', triggerButtonState: 'editTriggerButton' });
+  }
+
+  isMovieSeen = (id) => {
+    const movies = { ...this.state.movies}
+    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes}
+    isSeenCheckBoxes[id].isSeen === false ? isSeenCheckBoxes[id].isSeen = true : isSeenCheckBoxes[id].isSeen = false;
+    movies[id].isSeen === 'posterUnSeen' ? movies[id].isSeen = 'posterSeen' : movies[id].isSeen = 'posterUnSeen';
+    this.setState({ isSeenCheckBoxes })
+    this.forceUpdate();
+  }
+
+  closeMovieFocus = () => {
     this.setState({ showMovieFocus: false });
-  }*/
+  }
 
   render() {
-    const { movies } = this.state;
-
+    const {
+      movies,
+      isSeenCheckBoxes,
+      searchText,
+      showDeleteMovie,
+      hasBeenSeen,
+      triggerButtonState,
+      showMovieFocus,
+      titleFocus,
+      genreFocus,
+      dateFocus,
+      plotFocus,
+      ratingsFocus,
+    } = this.state;
 
     let filteredMovies = Object.keys(movies).reverse();
-    if (this.state.searchText !== null && this.state.searchText.length >= 3) {
+    if (searchText !== null && searchText.length >= 3) {
       filteredMovies = Object
         .keys(movies)
         .reverse()
-        .filter(movieKey => movies[movieKey].title.toLowerCase().includes(this.state.searchText));
+        .filter(movieKey => movies[movieKey].title.toLowerCase().includes(searchText));
     }
 
     const movieList = filteredMovies
       .map(key =>
         (<CSSTransition key={key} timeout={500} classNames="fade">
           <Movie
-            seen={"poster_seen"}
             key={key}
             id={key}
-            poster={movies[key].poster}
+            ficheType={"clickableFiche"}
+            posterType={isSeenCheckBoxes[key].isSeen === true ? "posterSeen" : "posterUnSeen" }
+            showDeleteMovie={showDeleteMovie}
+            hasBeenSeen={hasBeenSeen}
+            poster={"http://image.tmdb.org/t/p/w185/"+movies[key].poster}
             title={movies[key].title}
-            actors={movies[key].actors}
             genre={movies[key].genre}
-            year={movies[key].year}
-            awards={movies[key].awards}
-            writer={movies[key].writer}
+            date={movies[key].date}
             plot={movies[key].plot}
             ratings={movies[key].ratings}
+            imdbId={movies[key].imdbId}
             deleteMovie={this.deleteMovie}
             handleClick={this.clickMovie}
-            imdbID={movies[key].imdbID}/>
+            isMovieSeen={this.isMovieSeen}
+            isChecked={isSeenCheckBoxes[key].isSeen}/>
          </CSSTransition>
         ));
 
@@ -114,23 +154,21 @@ class App extends PureComponent {
 
       <div className="App">
         <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
+        <button className={triggerButtonState} onClick={this.triggerEdit}>{hasBeenSeen === 'hasBeenSeenHidden' ? 'Edit' : 'Quit editing'}</button>
         <TransitionGroup className="grid">
-          {/*<MovieForm createMovie={this.props.createMovie} addMovie={this.addMovie} />*/}
           {movieList}
         </TransitionGroup>
-        <CSSTransition in={this.state.showMovieFocus === true} timeout={500} classNames="fade">
+        <CSSTransition in={showMovieFocus === true} timeout={500} classNames="fade">
           <React.Fragment>
             {this.state.showMovieFocus ?
               <MovieFocus
-                poster={this.state.posterFocus}
-                title={this.state.titleFocus}
-                actors={this.state.actorsFocus}
-                genre={this.state.genreFocus}
-                year={this.state.yearFocus}
-                awards={this.state.awardsFocus}
-                writer={this.state.writerFocus}
-                plot={this.state.plotFocus}
-                ratings={this.state.ratingsFocus}
+                poster={"http://image.tmdb.org/t/p/w185/"+this.state.posterFocus}
+                title={titleFocus}
+                genre={genreFocus}
+                date={dateFocus}
+                plot={plotFocus}
+                ratings={ratingsFocus}
+                closeMovieFocus={this.closeMovieFocus}
               /> : null}
           </React.Fragment>
         </CSSTransition>

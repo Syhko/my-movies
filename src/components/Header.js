@@ -1,122 +1,103 @@
+// REACT ROUTER
 import { Link } from 'react-router-dom';
-import Autosuggest from 'react-autosuggest';
+// REACT
 import React from 'react';
+// COMPONENTS
+import Autosuggest from 'react-autosuggest';
+// STYLE
 import './Header.css';
-
+// CONSTANTS
+const BASE_API_PATH = 'https://api.themoviedb.org/3';
+const API_KEY = '83429be555fee4df5b40acab7217acf8';
 
 class Header extends React.Component {
   state = {
     poster: '',
     title: '',
-    actors: '',
-    year: '',
+    date: '',
     genre: '',
-    awards: '',
-    writer: '',
     plot: '',
     ratings: '',
-    imdbID: '',
+    imdbId: '',
     value: '',
     listMovies: [],
     suggestions: [],
   };
 
   onChange = (event, { newValue }) => {
+    this.setState({ value: newValue });
     this.requestFetchSuggestion();
-    this.setState({
-      value: newValue,
-    });
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
-      suggestions: this.getSuggestions(value)
+      suggestions: this.getSuggestions(value),
     });
   };
 
   onSuggestionsClearRequested = () => {
     this.setState({
-      suggestions: []
+      suggestions: [],
     });
   };
 
-  getSuggestionValue = suggestion => suggestion.Title
+  onSuggestionSelected = async (event, { suggestionValue }) => {
+    const currentComponent = this;
+    await this.setState ({ matchingValue: suggestionValue });
+    const selectedId = this.state.listMovies.filter(x => x.title === this.state.value)[0].id;
+    await fetch(`${BASE_API_PATH}/movie/${selectedId}?api_key=${API_KEY}&language=en-US`)
+      .then(response => response.json())
+      .then((data) => {
+        const poster = data.poster_path;
+        const { title } = data;
+        const date = data.release_date;
+        const genre = data.genres[0].name;
+        const plot = data.overview;
+        const ratings = data.vote_average;
+        const imdbId = data.imdb_id;
 
-  getSuggestions = (value) => {
-    const inputValue = value.toLowerCase();
-    const inputLength = inputValue.length;
-
-    return this.state.listMovies !== [] && inputLength === 0 ? [] : this.state.listMovies.filter(list =>
-      list.Title.toLowerCase().slice(0, inputLength) === inputValue);
-  };
-
-  createMovie = async (event) => {
-    event.preventDefault();
-    await this.requestFetch();
+        return currentComponent.setState({ poster, title, date, genre, plot, ratings, imdbId }
+          , () => true);
+      })
     const movie = {
       poster: this.state.poster,
       title: this.state.title,
-      actors: this.state.actors,
-      year: this.state.year,
+      date: this.state.date,
       genre: this.state.genre,
-      awards: this.state.awards,
-      writer: this.state.writer,
       plot: this.state.plot,
       ratings: this.state.ratings,
-      imdbID: this.state.imdbID,
+      imdbId: this.state.imdbId,
+      isSeen: 'posterUnSeen',
     };
-    if (movie.poster === 'N/A') {
-      alert('NO IMAGE FOUND');
-      return false;
-    }
-    this.props.addMovie(movie);
-    this.addForm.reset();
-    this.setState({ value : '' });
+    const isSeenCheckBox = {
+      isSeen: false
+    };
+    this.props.addMovie(movie, isSeenCheckBox);
+    await this.addForm.reset();
+    await this.setState({ value: '' });
   }
+
+  getSuggestionValue = suggestion => suggestion.title;
+
+  getSuggestions = (value) => {
+    return this.state.listMovies === undefined ? [] : this.state.listMovies.slice(0, 10);
+  };
 
   requestFetchSuggestion = () => {
     const currentComponent = this;
 
-    fetch(`https://www.omdbapi.com/?apikey=ffc03c92&s=${this.state.value}`)
-    .then(response => response.json())
-    .then((data) => {
-      if (data.Response !== "False") {
-        console.log(data);
-        const dataArray=Object.values(data).slice(0,1);
-      return currentComponent.setState ({ listMovies : dataArray[0] })
-    }
-      })
-
-  }
-
-  requestFetch = () => {
-    const currentComponent = this;
-
-    return fetch(`https://www.omdbapi.com/?apikey=ffc03c92&t=${this.state.value}`)
+    fetch(`${BASE_API_PATH}/search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.value}&page=1&include_adult=false`)
       .then(response => response.json())
       .then((data) => {
-        const title = data.Title;
-        const poster = data.Poster;
-        const actors = data.Actors;
-        const year = data.Year;
-        const genre = data.Genre;
-        const awards = data.Awards;
-        const writer = data.Writer;
-        const plot = data.Plot;
-        const ratings = data.Ratings;
-        const imdbID = data.imdbID;
-
-
-        return currentComponent.setState({
-          poster, title, actors, year, genre, awards, writer, plot, ratings, imdbID,
-        }, () => true);
+        const dataArray = data.results;
+        return currentComponent.setState({ listMovies: dataArray })
       });
   }
 
   renderSuggestion = suggestion => (
-      <div>
-        {suggestion.Title} {suggestion.Year}
-      </div>
+    <div>
+      {suggestion.title}
+    </div>
   );
 
   render() {
@@ -124,16 +105,17 @@ class Header extends React.Component {
     const { onChange, pseudo } = this.props;
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: 'Search a movie',
+      placeholder: 'Search',
       value,
+      type: 'search',
       onChange: this.onChange
     }
 
 
     return (
       <header className="bandeau">
-        <h1 className="titleText">Welcome {pseudo.charAt(0).toUpperCase()+pseudo.slice(1)} </h1>
-        <form className="addForm" ref={input => this.addForm = input} onSubmit={e => this.createMovie(e)} >
+        <h1 className="titleText">{pseudo.charAt(0).toUpperCase()+pseudo.slice(1)} </h1>
+        <form className="addForm" ref={input => this.addForm = input}>
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -141,11 +123,10 @@ class Header extends React.Component {
             getSuggestionValue={this.getSuggestionValue}
             renderSuggestion={this.renderSuggestion}
             inputProps={inputProps}
+            onSuggestionSelected={this.onSuggestionSelected}
           />
-          {/*<button type="submit" className="addButton">Add</button>*/}
         </form>
-        {/*<input className="searchInput" type="text" placeholder="Search..." onChange={e => onChange(e.target.value)} />*/}
-        <Link to="/"><button className="homeButton" /* onClick={this.props.deleteAll} */ >Return to Login Page</button></Link>
+        <Link to="/" className="link"><button className="homeButton">Home</button></Link>
       </header>
     );
   }

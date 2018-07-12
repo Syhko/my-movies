@@ -1,24 +1,28 @@
 import React from 'react';
 import './Movie.css';
 
-class Movie extends React.Component {
-  render() {
-    return (
-
-      <div className="fiche" id={this.props.id} >
-
-        <img
-          className={ this.props.seen ? "poster_seen" : "poster_unseen" }
-          src={this.props.poster}
-          width="250"
-          height="350"
-          alt=""
-          onClick={() => this.props.handleClick(this.props.id)}
-        />
-        <button onClick={() => this.props.deleteMovie(this.props.id)} className="overlayButton"><strong>X</strong></button>
-      </div>
-    );
-  }
-}
+const Movie = ({
+  id,
+  poster,
+  showDeleteMovie,
+  hasBeenSeen,
+  handleClick,
+  deleteMovie,
+  ficheType,
+  posterType,
+  isMovieSeen,
+  isChecked
+}) => (
+    <div className={ficheType} id={id} >
+      <img
+        className={posterType}
+        src={poster}
+        alt=""
+        onClick={() => handleClick(id)}
+      />
+      <button onClick={() => deleteMovie(id)} className={showDeleteMovie}><strong>X</strong></button>
+      <input className={hasBeenSeen} type="checkbox" checked={isChecked} onChange={() => isMovieSeen(id)}></input>
+    </div>
+    )
 
 export default Movie;
