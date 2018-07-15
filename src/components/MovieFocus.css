@@ -98,3 +98,7 @@
 	outline:0 !important;
 	color: #ffffff;
 }
+
+.closeMovieFocusButton:hover {
+	font-size: 13px;
+}
