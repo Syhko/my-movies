@@ -114,7 +114,7 @@ class Header extends React.Component {
 
     return (
       <header className="bandeau">
-        <h1 className="titleText">{pseudo.charAt(0).toUpperCase()+pseudo.slice(1)} </h1>
+        <h1 className="titleText">Hi there !</h1>
         <form className="addForm" ref={input => this.addForm = input}>
           <Autosuggest
             suggestions={suggestions}

@@ -24,6 +24,18 @@
 	outline: none;
 }
 
+.facebook_connexion_button {
+  font-family: 'Titillium Web';
+  font-size: 13px;
+  border-radius: 5px;
+  border: none;
+  width: 150px;
+  height: 30px;
+  color: #fff;
+  background-color: #3b5998;
+  box-shadow: 1px 1px 1px #000;
+}
+
 .connexion_button {
   font-family: 'Titillium Web';
   font-size: 15px;
@@ -36,10 +48,28 @@
   box-shadow: 1px 1px 1px #000;
 }
 
+.disconnect_button {
+  font-family: 'Titillium Web';
+  font-size: 15px;
+  border-radius: 5px;
+  border: none;
+  width: 100px;
+  height: 30px;
+  color: #aaa;
+  background-color: #880000;
+  box-shadow: 1px 1px 1px #000;
+  margin-top: 20px;
+}
+
 .connexion_title {
   font-family: 'Titillium Web';
   font-size: 50px;
   color: #dddddd;
+}
+
+.user_displayname {
+  font-family: 'Titillium Web';
+  font-size: 25px;  
 }
 
 .newMovieswrapper {

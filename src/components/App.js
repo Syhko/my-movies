@@ -31,11 +31,11 @@ class App extends PureComponent {
 
   // Synchro with firebase
   componentDidMount() {
-    this.ref = base.syncState(`${this.props.match.params.pseudo}/isSeenCheckBoxes`, {
+    this.ref = base.syncState(`${this.props.match.params.uid}/isSeenCheckBoxes`, {
       context: this,
       state: 'isSeenCheckBoxes',
     });
-    this.ref = base.syncState(`${this.props.match.params.pseudo}/movies`, {
+    this.ref = base.syncState(`${this.props.match.params.uid}/movies`, {
       context: this,
       state: 'movies',
     });
@@ -160,7 +160,7 @@ class App extends PureComponent {
         </TransitionGroup>
         <CSSTransition in={showMovieFocus === true} timeout={500} classNames="fade">
           <React.Fragment>
-            {this.state.showMovieFocus ?
+            {showMovieFocus ?
               <MovieFocus
                 poster={"http://image.tmdb.org/t/p/w185/"+this.state.posterFocus}
                 title={titleFocus}

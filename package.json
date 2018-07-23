@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.0.3",
+    "firebase": "^5.2.0",
     "re-base": "2.2.0",
     "react": "^16.2.0",
     "react-autosuggest": "^9.3.4",
