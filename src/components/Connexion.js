@@ -20,6 +20,7 @@ class Connexion extends PureComponent {
   state={
     pseudo: '',
     password: '',
+    error: '',
     newMoviesPosters: '',
     user: null,
   }
@@ -57,18 +58,20 @@ loginFacebook = () => {
 
 signUpAccount = () => {
   auth().createUserWithEmailAndPassword(this.state.pseudo, this.state.password).catch((error) => {
-    let errorCode = error.code;
-    let errorMessage = error.message;
-    alert(errorMessage);
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    this.setState({ error: errorMessage });
   });
+  this.setState({ error: null });
 }
 
 loginAccount = () => {
   auth().signInWithEmailAndPassword(this.state.pseudo, this.state.password).catch((error) => {
-    let errorCode = error.code;
-    let errorMessage = error.message;
-    alert(errorMessage);
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    this.setState({ error: errorMessage });
   });
+  this.setState({ error: null });
 }
 
 logout = () => {
@@ -78,11 +81,11 @@ logout = () => {
 }
 
   updatePseudo = (e) => {
-    this.setState({ pseudo: e.target.value });
+    this.setState({ pseudo: e.target.value, error: null });
   }
 
   updatePassword = (e) => {
-    this.setState({ password: e.target.value });
+    this.setState({ password: e.target.value, error: null });
   }
 
   checkPseudo = (e) => {
@@ -93,7 +96,7 @@ logout = () => {
   }
 
   render() {
-    const { pseudo, newMoviesPosters, user } = this.state;
+    const { pseudo, newMoviesPosters, user, error } = this.state;
 
     const newMovieList = Object.keys(newMoviesPosters)
       .map(key =>
@@ -147,6 +150,7 @@ logout = () => {
                       required
                       onChange={this.updatePassword}
                       />
+                      {error && <p>{error}</p>}
                       <div className="button_login_wrapper">
                         <button type="button" className="connexion_button" onClick={this.signUpAccount}>Sign up</button>
                         <button type="button" className="connexion_button" onClick={this.loginAccount}>Sign in</button>
