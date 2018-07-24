@@ -113,7 +113,7 @@ logout = () => {
                       Disconnect
                     </button>}
           {!user && <p>OR</p>}
-          {!user && <div>
+          {!user && <div className="pseudo_wrapper">
                       <input
                       className="connexion_input"
                       type="text"

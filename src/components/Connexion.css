@@ -48,12 +48,17 @@
   box-shadow: 1px 1px 1px #000;
 }
 
+.pseudo_wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .connexion_button {
   font-family: 'Titillium Web';
   font-size: 15px;
   border: none;
-  width: 20%;
-  height: 100%;
+  width: 40px;
+  height: 96%;
   color: #111111;
   background-color: #00D573;
   box-shadow: 1px 1px 1px #000;
@@ -110,7 +115,7 @@
     font-size: 30px;
   }
   .connexion_input {
-    width: 50%;
+    width: 80%;
   }
   .connexion_button {
     width: 100%;
