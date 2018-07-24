@@ -1,3 +1,21 @@
+@media screen and (max-width: 800px) {
+	.connexion_title{
+    font-size: 30px;
+  }
+  .connexion_input {
+    width: 80%;
+  }
+  .connexion_button {
+    width: 100%;
+  }
+  .newMovies_title {
+    font-size: 25px;
+  }
+  .user_displayname {
+    font-size: 20px;
+  }
+}
+
 .connexion_wrapper {
   display: flex;
   flex-direction: column;
@@ -108,19 +126,4 @@
   margin: 5px;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
-
-@media screen and (max-width: 800px) {
-	.connexion_title{
-    font-size: 30px;
-  }
-  .connexion_input {
-    width: 80%;
-  }
-  .connexion_button {
-    width: 100%;
-  }
-  .newMovies_title {
-    font-size: 25px;
-  }
 }
