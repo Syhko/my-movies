@@ -11,6 +11,8 @@ import MovieFocus from './MovieFocus';
 // BDD Firebase
 import base from '../base';
 
+import { auth } from '../client';
+
 
 class App extends PureComponent {
   state = {
@@ -27,28 +29,32 @@ class App extends PureComponent {
     hasBeenSeen: 'hasBeenSeenHidden',
     showDeleteMovie: 'showDeleteMovieHidden',
     triggerButtonState: 'editTriggerButton',
+    user: '',
   }
 
   // Synchro with firebase
+  componentWillMount() {
+    const user = auth().currentUser;
+    if (user) {
+      this.setState({ user: user.uid });
+    } else {
+      this.setState({ user: this.props.match.params.uid });
+    }
+  }
   componentDidMount() {
-    this.ref = base.syncState(`${this.props.match.params.uid}/isSeenCheckBoxes`, {
+    base.syncState(`${this.state.user}/isSeenCheckBoxes`, {
       context: this,
       state: 'isSeenCheckBoxes',
     });
-    this.ref = base.syncState(`${this.props.match.params.uid}/movies`, {
+    base.syncState(`${this.state.user}/movies`, {
       context: this,
       state: 'movies',
     });
   }
 
-  // Desynchro with firebase
-  componentWillUnmount() {
-    base.removeBinding(this.ref);
-  }
-
   addMovie = (movie, isSeenCheckBox) => {
     const movies = { ...this.state.movies };
-    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes}
+    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes };
     const isPresent = Object.values(movies).find(x => x.imdbId === movie.imdbId);
     if (isPresent === undefined) {
       const timestamp = Date.now();

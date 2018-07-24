@@ -36,6 +36,7 @@
   border-bottom: 2px solid #00D573;
 	background-color: inherit;
 	color: #aaaaaa;
+  margin-bottom: 10px;
 }
 
 .connexion_input:focus {
@@ -68,18 +69,25 @@
 
 .pseudo_wrapper {
   display: flex;
-  flex-direction: row;
-}
+  flex-direction: column;
+  align-items: center;
+  }
+
+  .button_login_wrapper {
+    display: flex;
+    flex-direction: row;
+  }
 
 .connexion_button {
   font-family: 'Titillium Web';
   font-size: 15px;
   border: none;
-  width: 40px;
+  width: 60px;
   height: 96%;
   color: #111111;
   background-color: #00D573;
   box-shadow: 1px 1px 1px #000;
+  margin: 5px;
 }
 
 .disconnect_button {

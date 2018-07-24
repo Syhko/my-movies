@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react';
 // FIREBASE
 import firebase from 'firebase';
-// FIREBASE COMPONENTS
 import { facebookProvider, auth } from '../client';
 // ROUTER
 import { Link } from 'react-router-dom';
@@ -20,6 +19,7 @@ class Connexion extends PureComponent {
 
   state={
     pseudo: '',
+    password: '',
     newMoviesPosters: '',
     user: null,
   }
@@ -48,12 +48,27 @@ class Connexion extends PureComponent {
     })
   }
 
-login = () => {
+loginFacebook = () => {
   auth().signInWithPopup(facebookProvider)
     .then(({ user }) => {
-      this.setState({ user });
-    })
-    console.log(this.state.user);
+      this.setState({ user }, () => console.log(this.state.user));
+    });
+}
+
+signUpAccount = () => {
+  auth().createUserWithEmailAndPassword(this.state.pseudo, this.state.password).catch((error) => {
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    alert(errorMessage);
+  });
+}
+
+loginAccount = () => {
+  auth().signInWithEmailAndPassword(this.state.pseudo, this.state.password).catch((error) => {
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    alert(errorMessage);
+  });
 }
 
 logout = () => {
@@ -64,6 +79,10 @@ logout = () => {
 
   updatePseudo = (e) => {
     this.setState({ pseudo: e.target.value });
+  }
+
+  updatePassword = (e) => {
+    this.setState({ password: e.target.value });
   }
 
   checkPseudo = (e) => {
@@ -97,7 +116,7 @@ logout = () => {
 
 
           {!user && <button
-                      onClick={this.login}
+                      onClick={this.loginFacebook}
                       className="facebook_connexion_button">
                       Connect with Facebook
                     </button>}
@@ -113,21 +132,26 @@ logout = () => {
                       Disconnect
                     </button>}
           {!user && <p>OR</p>}
-          {!user && <div className="pseudo_wrapper">
+          {!user && <form className="pseudo_wrapper">
                       <input
                       className="connexion_input"
                       type="text"
-                      placeholder="Enter your pseudo*"
+                      placeholder="Email"
                       required
                       onChange={this.updatePseudo}
                       />
-                      <Link to={`/movies/${pseudo.trim().toLowerCase()}`} onClick={this.checkPseudo}>
-                        <button className="connexion_button">
-                          Go !
-                        </button>
-                      </Link>
-                    </div>}
-          {!user && <p>*(Only letters and digits, min 3, max 10)</p>}
+                      <input
+                      className="connexion_input"
+                      type="password"
+                      placeholder="Password"
+                      required
+                      onChange={this.updatePassword}
+                      />
+                      <div className="button_login_wrapper">
+                        <button type="button" className="connexion_button" onClick={this.signUpAccount}>Sign up</button>
+                        <button type="button" className="connexion_button" onClick={this.loginAccount}>Sign in</button>
+                      </div>
+                    </form>}
         </div>
         <div className="newMovieswrapper">
           <h1 className="newMovies_title">News and upcomings</h1>

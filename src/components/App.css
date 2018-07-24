@@ -45,7 +45,6 @@
 .grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   margin: 7px;
   position: relative;
   top: 112px;
