@@ -49,7 +49,7 @@ class App extends PureComponent {
   addMovie = (movie, isSeenCheckBox) => {
     const movies = { ...this.state.movies };
     const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes}
-    let isPresent = Object.values(movies).find(x => x.imdbId === movie.imdbId);
+    const isPresent = Object.values(movies).find(x => x.imdbId === movie.imdbId);
     if (isPresent === undefined) {
       const timestamp = Date.now();
       movies[`${timestamp}`] = movie;

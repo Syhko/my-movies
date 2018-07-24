@@ -11,4 +11,4 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 export const ref = firebase.database().ref();
 export const auth = firebase.auth;
-export const provider = new firebase.auth.FacebookAuthProvider();
+export const facebookProvider = new firebase.auth.FacebookAuthProvider();
