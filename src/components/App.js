@@ -169,6 +169,7 @@ class App extends PureComponent {
           movies={movies}
           onSortEnd={this.onSortEnd}
           transitionDuration={700}
+          useWindowAsScrollContainer={true}
         />
         <CSSTransition in={showMovieFocus === true} timeout={500} classNames="fade">
           <React.Fragment>
