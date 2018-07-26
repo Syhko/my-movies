@@ -55,11 +55,13 @@ class Header extends React.Component {
         const plot = data.overview;
         const ratings = data.vote_average;
         const imdbId = data.imdb_id;
+        const id= Date.now();
 
-        return currentComponent.setState({ poster, title, date, genre, plot, ratings, imdbId }
+        return currentComponent.setState({ id, poster, title, date, genre, plot, ratings, imdbId }
           , () => true);
       })
     const movie = {
+      id: this.state.id,
       poster: this.state.poster,
       title: this.state.title,
       date: this.state.date,
@@ -67,12 +69,12 @@ class Header extends React.Component {
       plot: this.state.plot,
       ratings: this.state.ratings,
       imdbId: this.state.imdbId,
-      isSeen: 'posterUnSeen',
+      isSeen: false,
     };
-    const isSeenCheckBox = {
+    /*const isSeenCheckBox = {
       isSeen: false
-    };
-    this.props.addMovie(movie, isSeenCheckBox);
+    };*/
+    this.props.addMovie(movie/*, isSeenCheckBox*/);
     await this.addForm.reset();
     await this.setState({ value: '' });
   }

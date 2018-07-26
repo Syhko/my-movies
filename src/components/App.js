@@ -10,14 +10,15 @@ import Movie from './Movie';
 import MovieFocus from './MovieFocus';
 // BDD Firebase
 import base from '../base';
-
 import { auth } from '../client';
+// REACT SORTABLE
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
+const POSTER_PATH = 'http://image.tmdb.org/t/p/w185';
 
 class App extends PureComponent {
   state = {
-    movies: {},
-    isSeenCheckBoxes: {},
+    movies: [],
     showMovieFocus: false,
     searchText: null,
     posterFocus: '',
@@ -42,49 +43,39 @@ class App extends PureComponent {
     }
   }
   componentDidMount() {
-    base.syncState(`${this.state.user}/isSeenCheckBoxes`, {
-      context: this,
-      state: 'isSeenCheckBoxes',
-    });
     base.syncState(`${this.state.user}/movies`, {
       context: this,
       state: 'movies',
+      asArray: true
     });
   }
 
-  addMovie = (movie, isSeenCheckBox) => {
-    const movies = { ...this.state.movies };
-    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes };
-    const isPresent = Object.values(movies).find(x => x.imdbId === movie.imdbId);
+  addMovie = (movie) => {
+    const movies = [ ...this.state.movies ];
+    const isPresent = Object.values(this.state.movies).find(x => x.imdbId === movie.imdbId);
     if (isPresent === undefined) {
-      const timestamp = Date.now();
-      movies[`${timestamp}`] = movie;
-      isSeenCheckBoxes[`${timestamp}`] = isSeenCheckBox;
-      this.setState({ searchText: null });
-      this.setState({ movies, isSeenCheckBoxes });
+    movies.push(movie);
+    console.log(movies);
+    this.setState({ movies });
     } else {
       alert('this movie already exist');
     }
   }
 
-  deleteMovie = (id) => {
-    const movies = { ...this.state.movies };
-    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes };
-    movies[id] = null;
+  deleteMovie = (index) => {
+    const movies = [ ...this.state.movies ];
+    movies.splice(index, 1);
     this.setState({ movies });
-    isSeenCheckBoxes[id] = null;
-    this.setState({ isSeenCheckBoxes });
   }
 
-  clickMovie = (id) => {
-    const movies = { ...this.state.movies };
+  clickMovie = (index) => {
     this.setState({
-      posterFocus: movies[id].poster,
-      titleFocus: movies[id].title,
-      genreFocus: movies[id].genre,
-      dateFocus: movies[id].date,
-      plotFocus: movies[id].plot,
-      ratingsFocus: movies[id].ratings,
+      posterFocus: this.state.movies[index].poster,
+      titleFocus: this.state.movies[index].title,
+      genreFocus: this.state.movies[index].genre,
+      dateFocus: this.state.movies[index].date,
+      plotFocus: this.state.movies[index].plot,
+      ratingsFocus: this.state.movies[index].ratings,
     });
     this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
   }
@@ -97,16 +88,19 @@ class App extends PureComponent {
 
   isMovieSeen = (id) => {
     const movies = { ...this.state.movies}
-    const isSeenCheckBoxes = { ...this.state.isSeenCheckBoxes}
-    isSeenCheckBoxes[id].isSeen === false ? isSeenCheckBoxes[id].isSeen = true : isSeenCheckBoxes[id].isSeen = false;
-    movies[id].isSeen === 'posterUnSeen' ? movies[id].isSeen = 'posterSeen' : movies[id].isSeen = 'posterUnSeen';
-    this.setState({ isSeenCheckBoxes })
-    this.forceUpdate();
+    movies[id].isSeen === false ? movies[id].isSeen = true : movies[id].isSeen = false;
+    this.setState({ movies })
   }
 
   closeMovieFocus = () => {
     this.setState({ showMovieFocus: false });
   }
+
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.setState(prevState => ({
+      movies: arrayMove(prevState.movies, oldIndex, newIndex),
+    }));
+  };
 
   render() {
     const {
@@ -124,25 +118,27 @@ class App extends PureComponent {
       ratingsFocus,
     } = this.state;
 
-    let filteredMovies = Object.keys(movies).reverse();
-    if (searchText !== null && searchText.length >= 3) {
-      filteredMovies = Object
-        .keys(movies)
-        .reverse()
-        .filter(movieKey => movies[movieKey].title.toLowerCase().includes(searchText));
-    }
+    const DraggableMovie = SortableElement(({ key, ...props }) =>
+      //<CSSTransition key={key} timeout={500} classNames="fade">
+        <Movie key={key} {...props} />
+      //</CSSTransition>
+    )
 
-    const movieList = filteredMovies
+    const movieList = Object
+      .keys(movies)
+      .reverse()
       .map(key =>
-        (<CSSTransition key={key} timeout={500} classNames="fade">
-          <Movie
+        (
+          <DraggableMovie
+            index={key}
+            sortIndex={key}
             key={key}
             id={key}
             ficheType={"clickableFiche"}
-            posterType={isSeenCheckBoxes[key].isSeen === true ? "posterSeen" : "posterUnSeen" }
+            posterType={movies[key].isSeen === true ? "posterSeen" : "posterUnSeen" }
             showDeleteMovie={showDeleteMovie}
             hasBeenSeen={hasBeenSeen}
-            poster={"http://image.tmdb.org/t/p/w185/"+movies[key].poster}
+            poster={`${POSTER_PATH}`+movies[key].poster}
             title={movies[key].title}
             genre={movies[key].genre}
             date={movies[key].date}
@@ -152,23 +148,26 @@ class App extends PureComponent {
             deleteMovie={this.deleteMovie}
             handleClick={this.clickMovie}
             isMovieSeen={this.isMovieSeen}
-            isChecked={isSeenCheckBoxes[key].isSeen}/>
-         </CSSTransition>
+            isChecked={movies[key].isSeen}/>
         ));
+
+    const DraggableList = SortableContainer(movies => (
+      <div className="grid">
+        {movieList}
+      </div>
+    ));
 
     return (
 
       <div className="App">
-        <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} onChange={value => this.setState({ searchText: value })}/>
+        <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} />
         <button className={triggerButtonState} onClick={this.triggerEdit}>{hasBeenSeen === 'hasBeenSeenHidden' ? 'Edit' : 'Quit editing'}</button>
-        <TransitionGroup className="grid">
-          {movieList}
-        </TransitionGroup>
+        <DraggableList axis={"xy"} pressDelay={150} movies={movies} onSortEnd={this.onSortEnd} />
         <CSSTransition in={showMovieFocus === true} timeout={500} classNames="fade">
           <React.Fragment>
             {showMovieFocus ?
               <MovieFocus
-                poster={"http://image.tmdb.org/t/p/w185/"+this.state.posterFocus}
+                poster={'http://image.tmdb.org/t/p/w185'+this.state.posterFocus}
                 title={titleFocus}
                 genre={genreFocus}
                 date={dateFocus}
