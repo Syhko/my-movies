@@ -55,7 +55,6 @@ class App extends PureComponent {
     const isPresent = Object.values(this.state.movies).find(x => x.imdbId === movie.imdbId);
     if (isPresent === undefined) {
     movies.push(movie);
-    console.log(movies);
     this.setState({ movies });
     } else {
       alert('this movie already exist');
@@ -77,7 +76,9 @@ class App extends PureComponent {
       plotFocus: this.state.movies[index].plot,
       ratingsFocus: this.state.movies[index].ratings,
     });
-    this.state.showMovieFocus === false ? this.setState({ showMovieFocus: true }) : this.setState({ showMovieFocus: false });
+    this.state.showMovieFocus === false ?
+    this.setState({ showMovieFocus: true }) :
+    this.setState({ showMovieFocus: false });
   }
 
   triggerEdit = () => {
@@ -126,11 +127,11 @@ class App extends PureComponent {
 
     const movieList = Object
       .keys(movies)
-      .reverse()
+      //.reverse()
       .map(key =>
         (
           <DraggableMovie
-            index={key}
+            index={parseInt(key)}
             sortIndex={key}
             key={key}
             id={key}
@@ -162,7 +163,13 @@ class App extends PureComponent {
       <div className="App">
         <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} />
         <button className={triggerButtonState} onClick={this.triggerEdit}>{hasBeenSeen === 'hasBeenSeenHidden' ? 'Edit' : 'Quit editing'}</button>
-        <DraggableList axis={"xy"} pressDelay={150} movies={movies} onSortEnd={this.onSortEnd} />
+        <DraggableList
+          axis={"xy"}
+          pressDelay={100}
+          movies={movies}
+          onSortEnd={this.onSortEnd}
+          transitionDuration={700}
+        />
         <CSSTransition in={showMovieFocus === true} timeout={500} classNames="fade">
           <React.Fragment>
             {showMovieFocus ?
