@@ -20,7 +20,6 @@ class App extends PureComponent {
   state = {
     movies: [],
     showMovieFocus: false,
-    searchText: null,
     posterFocus: '',
     titleFocus: '',
     genreFocus: '',
@@ -42,19 +41,26 @@ class App extends PureComponent {
       this.setState({ user: null });
     }
   }
+
   componentDidMount() {
-    base.syncState(`${this.state.user}/movies`, {
-      context: this,
-      state: 'movies',
-      asArray: true
-    });
+
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user: user.uid })
+        base.syncState(`${this.state.user}/movies`, {
+         context: this,
+         state: 'movies',
+         asArray: true
+       });
+      }
+    })
   }
 
-  deleteMovie = (index) => {
-    const movies = [...this.state.movies];
-    movies.splice(index, 1);
-    this.setState({ movies });
-  }
+  onSortEnd = ({oldIndex, newIndex}) => {
+    this.setState(prevState => ({
+      movies: arrayMove(prevState.movies, oldIndex, newIndex),
+    }));
+  };
 
   clickMovie = (index) => {
     this.setState({
@@ -86,12 +92,6 @@ class App extends PureComponent {
     this.setState({ showMovieFocus: false });
   }
 
-  onSortEnd = ({oldIndex, newIndex}) => {
-    this.setState(prevState => ({
-      movies: arrayMove(prevState.movies, oldIndex, newIndex),
-    }));
-  };
-
   addMovie = (movie) => {
     const movies = [...this.state.movies];
     const isPresent = Object.values(this.state.movies).find(x => x.imdbId === movie.imdbId);
@@ -103,11 +103,16 @@ class App extends PureComponent {
     }
   }
 
+  deleteMovie = (index) => {
+    const movies = [...this.state.movies];
+    movies.splice(index, 1);
+    this.setState({ movies });
+  }
+
   render() {
     const {
       user,
       movies,
-      isSeenCheckBoxes,
       searchText,
       showDeleteMovie,
       hasBeenSeen,

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 export const { auth } = firebase;
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();

@@ -71,10 +71,7 @@ class Header extends React.Component {
       imdbId: this.state.imdbId,
       isSeen: false,
     };
-    /*const isSeenCheckBox = {
-      isSeen: false
-    };*/
-    this.props.addMovie(movie/*, isSeenCheckBox*/);
+    this.props.addMovie(movie);
     await this.addForm.reset();
     await this.setState({ value: '' });
   }
