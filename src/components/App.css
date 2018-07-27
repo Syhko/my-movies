@@ -43,13 +43,21 @@
 }
 
 .grid {
-
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 7px;
   position: relative;
   top: 112px;
+}
+
+.message_unlogged {
+  top: 50%;
+  left: 50%;
+  color: #ccc;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  font-size: 25px;
 }
 
 .fade-enter {

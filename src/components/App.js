@@ -39,7 +39,7 @@ class App extends PureComponent {
     if (user) {
       this.setState({ user: user.uid });
     } else {
-      this.setState({ user: this.props.match.params.uid });
+      this.setState({ user: null });
     }
   }
   componentDidMount() {
@@ -50,19 +50,8 @@ class App extends PureComponent {
     });
   }
 
-  addMovie = (movie) => {
-    const movies = [ ...this.state.movies ];
-    const isPresent = Object.values(this.state.movies).find(x => x.imdbId === movie.imdbId);
-    if (isPresent === undefined) {
-    movies.push(movie);
-    this.setState({ movies });
-    } else {
-      alert('this movie already exist');
-    }
-  }
-
   deleteMovie = (index) => {
-    const movies = [ ...this.state.movies ];
+    const movies = [...this.state.movies];
     movies.splice(index, 1);
     this.setState({ movies });
   }
@@ -103,8 +92,20 @@ class App extends PureComponent {
     }));
   };
 
+  addMovie = (movie) => {
+    const movies = [...this.state.movies];
+    const isPresent = Object.values(this.state.movies).find(x => x.imdbId === movie.imdbId);
+    if (isPresent === undefined) {
+      movies.push(movie);
+      this.setState({ movies });
+    } else {
+      alert('this movie already exist');
+    }
+  }
+
   render() {
     const {
+      user,
       movies,
       isSeenCheckBoxes,
       searchText,
@@ -120,14 +121,11 @@ class App extends PureComponent {
     } = this.state;
 
     const DraggableMovie = SortableElement(({ key, ...props }) =>
-      //<CSSTransition key={key} timeout={500} classNames="fade">
-        <Movie key={key} {...props} />
-      //</CSSTransition>
+      <Movie key={key} {...props} />
     )
 
     const movieList = Object
       .keys(movies)
-      //.reverse()
       .map(key =>
         (
           <DraggableMovie
@@ -149,7 +147,8 @@ class App extends PureComponent {
             deleteMovie={this.deleteMovie}
             handleClick={this.clickMovie}
             isMovieSeen={this.isMovieSeen}
-            isChecked={movies[key].isSeen}/>
+            isChecked={movies[key].isSeen}
+          />
         ));
 
     const DraggableList = SortableContainer(movies => (
@@ -161,7 +160,12 @@ class App extends PureComponent {
     return (
 
       <div className="App">
-        <Header createMovie={this.props.createMovie} addMovie={this.addMovie} pseudo={this.props.match.params.pseudo} />
+        {!user && <p className="message_unlogged">You are not correctly logged or this is not your account</p>}
+        <Header
+          createMovie={this.props.createMovie}
+          addMovie={this.addMovie}
+          pseudo={this.props.match.params.pseudo}
+        />
         <button className={triggerButtonState} onClick={this.triggerEdit}>{hasBeenSeen === 'hasBeenSeenHidden' ? 'Edit' : 'Quit editing'}</button>
         <DraggableList
           axis={"xy"}
